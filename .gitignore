@@ -1,0 +1,11 @@
+# Ignorar arquivos da IDE
+.vscode/
+*.suo
+*.user
+*.exe
+*.dll
+
+# Ignorar arquivos de logs e temporários
+*.log
+node_modules/
+__pycache__/
