@@ -9,5 +9,6 @@
         public string? TelefoneResponsavelFixo { get; set; }
         public int IdPrazoDocumentoFaltante { get; set; }
         public int IdDocumentoFaltante { get; set; }
+        public DateTime PrazoEntrega { get; set; }
     }
 }

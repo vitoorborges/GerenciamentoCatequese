@@ -1,6 +1,7 @@
 using GerenciamentoCatequese.Interfaces;
 using GerenciamentoCatequese.Models;
 using GerenciamentoCatequese.Repositories;
+using GerenciamentoCatequese.Utils;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Serilog;
@@ -11,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IUsuarioService,UsuarioRepository>();
 builder.Services.AddScoped<IGerenciamentoService,GerenciamentoRespository>();
+builder.Services.AddScoped<IFileManager,FileManager>();
 builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration));
 
 // Add services to the container.

@@ -63,6 +63,7 @@
                                             <th>Turma</th>
                                             <th>Documento(s) Faltante(s)</th>
                                             <th>Ação</th>
+                                            <th>Ação</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -75,6 +76,11 @@
                                                 <td>
                                                     <input type="hidden" value="@item.IdCatequizando" class="id-documento" />
                                                     <a class="edit-link" href="#">Editar</a>
+                                                </td>
+                                                <td>
+                                                    <a class="edit-link2" asp-page-handler="GerarArquivo">
+                                                        📥 Baixar Arquivo
+                                                    </a>
                                                 </td>
                                             </tr>
                                         }

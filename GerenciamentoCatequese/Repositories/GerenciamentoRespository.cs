@@ -158,6 +158,7 @@ namespace GerenciamentoCatequese.Repositories
                 p.Add("@TelefoneResponsavelFixo", registro.TelefoneResponsavelFixo);
                 p.Add("@IdPrazoDocumentoFaltante", registro.IdPrazoDocumentoFaltante);
                 p.Add("@IdDocumentoFaltante", registro.IdDocumentoFaltante);
+                p.Add("@PrazoEntrega", registro.PrazoEntrega);
 
 
                 var retorno = await connection.QueryAsync(
@@ -189,6 +190,7 @@ namespace GerenciamentoCatequese.Repositories
                 p.Add("@TelefoneResponsavelFixo", registro.TelefoneResponsavelFixo);
                 p.Add("@IdPrazoDocumentoFaltante", registro.IdPrazoDocumentoFaltante);
                 p.Add("@IdDocumentoFaltante", registro.IdDocumentoFaltante);
+                p.Add("@PrazoEntrega", registro.PrazoEntrega);
 
 
                 var retorno = await connection.QueryAsync(

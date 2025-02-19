@@ -18,7 +18,7 @@
     <div class="mt-4">
         <h1 style="text-align: center">Catequese PNSD 2025</h1>
     </div>
-    <div class="mt-2">
+    <div class="mt-4">
         <div class=" card card-md container-narrow py-2 px-2">
             <form method="post">
                 <div class="card-body" style="width:auto; height:auto">
@@ -81,7 +81,7 @@
                                 <label class="form-label">Localidade do Documento</label>
                                 <div class="row g-2">
                                     <div class="col">
-                                        <select asp-for="@Model._registroDocumentosFaltantesRequisicao.IdPrazoDocumentoFaltante" class="form-select">
+                                        <select id="prazoFaltante" asp-for="@Model._registroDocumentosFaltantesRequisicao.IdPrazoDocumentoFaltante" class="form-select">
                                             <option disabled selected value="">Selecione uma opção</option>
                                             @foreach (var item in Model._prazos)
                                             {
@@ -104,6 +104,14 @@
                                 <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
                             </div>
                         </div>
+
+                        <div class="col">
+                            <div class="mb-3">
+                                <label class="form-label">Prazo para entrega</label>
+                                <input type="date" id="prazoEntrega" readonly asp-for="@Model._registroDocumentosFaltantesRequisicao.PrazoEntrega" class="form-control">
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="mt-2" style="display: flex; justify-content: space-between; align-items: center;">
@@ -147,4 +155,26 @@
             }
         });
     });
+
+            document.addEventListener("DOMContentLoaded", function () {
+        const prazoFaltante = document.getElementById("prazoFaltante");
+        const prazoEntrega = document.getElementById("prazoEntrega");
+
+        prazoFaltante.addEventListener("change", function () {
+            let meses = parseInt(this.value);
+
+            if (!isNaN(meses) && meses > 0) {
+                let dataAtual = new Date();
+                dataAtual.setMonth(dataAtual.getMonth() + meses); // Adiciona os meses
+
+                // Formata a data para YYYY-MM-DD (padrão aceito pelo input type="date")
+                let dataFormatada = dataAtual.toISOString().split("T")[0];
+
+                prazoEntrega.value = dataFormatada;
+            } else {
+                prazoEntrega.value = ""; // Se inválido, limpa o campo
+            }
+        });
+    });
+
 </script>
