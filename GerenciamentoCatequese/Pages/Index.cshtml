@@ -1,0 +1,148 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste</title>
+</head>
+
+
+<body>
+    <div class="mt-4">
+        <h1 style="text-align: center">Catequese PNSD 2025</h1>
+    </div>
+    <div class="mt-4">
+        <div class=" card card-md container-narrow py-2 px-2">
+            <div class="card-body">
+
+                <div class="container-xl mb-4">
+                    <div class="mb-3" style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3>Relação de catequizandos com documentos faltantes</h3>
+                        <form method="get" asp-page="DocumentosFaltantes">
+                            <button type="submit" class="btn btn-6 btn-primary active w-20">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-plus">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+                                    <path d="M15 12h-6" />
+                                    <path d="M12 9v6" />
+                                </svg>
+                                Adicionar
+                            </button>
+                        </form>
+                    </div>
+
+                   
+
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" id="searchNome" class="form-control" placeholder="Filtrar por Nome">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select id="filterTurma" class="form-control">
+                                            <option value="">Todas as Turmas</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-vcenter card-table table-striped" id="tableData">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Turma</th>
+                                            <th>Documento(s) Faltante(s)</th>
+                                            <th>Ação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model._documentosFaltantes)
+                                        {
+                                            <tr>
+                                                <td class="nome">@item.NomeCatequizando</td>
+                                                <td class="turma text-secondary">@item.DescricaoTurma</td>
+                                                <td class="text-secondary">@item.DescricaoDocumentosFaltantes</td>
+                                                <td>
+                                                    <input type="hidden" value="@item.IdCatequizando" class="id-documento" />
+                                                    <a class="edit-link" href="#">Editar</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchNome = document.getElementById("searchNome");
+        const filterTurma = document.getElementById("filterTurma");
+        const tableRows = document.querySelectorAll("#tableData tbody tr");
+
+        // Criar lista única de turmas
+        const turmas = new Set();
+        tableRows.forEach(row => {
+            turmas.add(row.querySelector(".turma").textContent.trim());
+        });
+
+        // Adicionar turmas ao select
+        turmas.forEach(turma => {
+            const option = document.createElement("option");
+            option.value = turma;
+            option.textContent = turma;
+            filterTurma.appendChild(option);
+        });
+
+        // Função para filtrar
+        function filtrarTabela() {
+            const nomeFiltro = searchNome.value.toLowerCase();
+            const turmaFiltro = filterTurma.value;
+
+            tableRows.forEach(row => {
+                const nome = row.querySelector(".nome").textContent.toLowerCase();
+                const turma = row.querySelector(".turma").textContent.trim();
+
+                const matchNome = nome.includes(nomeFiltro);
+                const matchTurma = turmaFiltro === "" || turma === turmaFiltro;
+
+                row.style.display = matchNome && matchTurma ? "" : "none";
+            });
+        }
+
+        // Eventos de input e mudança para acionar filtro
+        searchNome.addEventListener("input", filtrarTabela);
+        filterTurma.addEventListener("change", filtrarTabela);
+    });
+
+            document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".edit-link").forEach(link => {
+            link.addEventListener("click", function (event) {
+                event.preventDefault(); // Evita o comportamento padrão do link
+
+                // Obtém o ID do documento da linha correspondente
+                const idDocumento = this.closest("tr").querySelector(".id-documento").value;
+
+                // Redireciona para a página de gerenciamento passando o ID corretamente
+                window.location.href = "/DocumentosFaltantes?id=" + encodeURIComponent(idDocumento);
+            });
+        });
+    });
+
+</script>

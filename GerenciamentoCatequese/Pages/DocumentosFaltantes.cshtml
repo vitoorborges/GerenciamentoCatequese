@@ -1,0 +1,150 @@
+﻿@page
+@model GerenciamentoCatequese.Pages.DocumentosFaltantesModel
+@{
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste</title>
+
+</head>
+
+
+<body>
+    <div class="mt-4">
+        <h1 style="text-align: center">Catequese PNSD 2025</h1>
+    </div>
+    <div class="mt-2">
+        <div class=" card card-md container-narrow py-2 px-2">
+            <form method="post">
+                <div class="card-body" style="width:auto; height:auto">
+
+                    <div>
+                        <h2 style="text-align: center">Dados do Catequisando</h2>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Nome</div>
+                                <input type="Text" asp-for="@Model._registroDocumentosFaltantesRequisicao.NomeCatequizando" placeholder="Informe o nome do catequisando" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Nome do Responsavel</div>
+                                <input type="Text" asp-for="@Model._registroDocumentosFaltantesRequisicao.NomeResponsavel" placeholder="Informe o nome do responsavel pelo catequisando" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Telefone(Fixo)</div>
+                                <input type="text" asp-for="@Model._registroDocumentosFaltantesRequisicao.TelefoneResponsavelFixo" placeholder="Informe o telefone fixo" class="form-control telefone-mascara" data-mascara="(99) 9999-9999">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Telefone(Celular)</div>
+                                <input type="text" asp-for="@Model._registroDocumentosFaltantesRequisicao.TelefoneResponsavel" placeholder="Informe o telefone celular" class="form-control telefone-mascara" data-mascara="(99) 99999-9999">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label class="form-label">Turma</label>
+                                <div class="row g-2">
+                                    <div class="col">
+                                        <select asp-for="@Model._registroDocumentosFaltantesRequisicao.IdTurma" class="form-select">
+                                            <option disabled selected value="">Selecione uma opção</option>
+                                            @foreach (var item in Model._turmas)
+                                            {
+                                                <option value="@item.IdTurma">@item.DescricaoTurma</option>
+                                            }
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label class="form-label">Localidade do Documento</label>
+                                <div class="row g-2">
+                                    <div class="col">
+                                        <select asp-for="@Model._registroDocumentosFaltantesRequisicao.IdPrazoDocumentoFaltante" class="form-select">
+                                            <option disabled selected value="">Selecione uma opção</option>
+                                            @foreach (var item in Model._prazos)
+                                            {
+                                                <option value="@item.IdPrazoDocumentoFaltante">@item.DescricaoPrazo</option>
+                                            }
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label class="form-label">Documento faltante</label>
+                                <input type="Text" value="Comprovante de batismo" readonly class="form-control">
+                                <input type="hidden" asp-for="@Model._registroDocumentosFaltantesRequisicao.IdDocumentoFaltante" value="1" />
+                                <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-2" style="display: flex; justify-content: space-between; align-items: center;">
+                        <a class="btn btn-primary btn-3" href="./Index"> Voltar</a>
+                        <button class="btn btn-success btn-3" type="submit"> Salvar</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    function aplicarMascara(input, mascara) {
+        input.addEventListener("input", function () {
+            let value = input.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+            let mascaraLimpa = mascara.replace(/\D/g, ""); // Remove caracteres não numéricos da máscara
+            let novoValor = "";
+            let index = 0;
+
+            for (let i = 0; i < mascara.length; i++) {
+                if (index >= value.length) break;
+
+                if (mascara[i] === "9") {
+                    novoValor += value[index++];
+                } else {
+                    novoValor += mascara[i];
+                }
+            }
+            input.value = novoValor;
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".telefone-mascara").forEach(input => {
+            let mascara = input.getAttribute("data-mascara");
+            if (mascara) {
+                aplicarMascara(input, mascara);
+            }
+        });
+    });
+</script>

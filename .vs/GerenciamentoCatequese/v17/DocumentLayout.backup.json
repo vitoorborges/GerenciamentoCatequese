@@ -1,0 +1,360 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\repositories\\gerenciamentorespository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\repositories\\gerenciamentorespository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\pages\\documentosfaltantes.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\pages\\documentosfaltantes.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\models\\registrodocumentosfaltantestabela.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\models\\registrodocumentosfaltantestabela.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\pages\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\interfaces\\gerenciamentoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\interfaces\\gerenciamentoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\pages\\documentosfaltantes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\pages\\documentosfaltantes.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\pages\\logout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\pages\\logout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\models\\documentofaltante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\models\\documentofaltante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\models\\turma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\models\\turma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\pages\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\pages\\login.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\gerenciamentocatequese.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\gerenciamentocatequese.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\models\\catequizando.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\models\\catequizando.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\repositories\\usuariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\repositories\\usuariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\pages\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\pages\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\interfaces\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\interfaces\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|c:\\users\\vitoo\\source\\repos\\gerenciamentocatequese\\gerenciamentocatequese\\pages\\logout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{61499F84-B01F-4E7B-B50D-5F0FBB5851C8}|GerenciamentoCatequese\\GerenciamentoCatequese.csproj|solutionrelative:gerenciamentocatequese\\pages\\logout.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\vitoo\\source\\repos\\WizardRazor\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\vitoo\\source\\repos\\WizardRazor\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 12,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RegistroDocumentosFaltantesTabela.cs",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Models\\RegistroDocumentosFaltantesTabela.cs",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Models\\RegistroDocumentosFaltantesTabela.cs",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Models\\RegistroDocumentosFaltantesTabela.cs",
+              "RelativeToolTip": "GerenciamentoCatequese\\Models\\RegistroDocumentosFaltantesTabela.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T20:37:09.485Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DocumentosFaltantes.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\DocumentosFaltantes.cshtml.cs",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Pages\\DocumentosFaltantes.cshtml.cs",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\DocumentosFaltantes.cshtml.cs",
+              "RelativeToolTip": "GerenciamentoCatequese\\Pages\\DocumentosFaltantes.cshtml.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAAwDwAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T20:38:06.629Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GerenciamentoRespository.cs",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Repositories\\GerenciamentoRespository.cs",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Repositories\\GerenciamentoRespository.cs",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Repositories\\GerenciamentoRespository.cs",
+              "RelativeToolTip": "GerenciamentoCatequese\\Repositories\\GerenciamentoRespository.cs",
+              "ViewState": "AgIAAKoAAAAAAAAAAAAuwMUAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T18:16:14.675Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DocumentoFaltante.cs",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Models\\DocumentoFaltante.cs",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Models\\DocumentoFaltante.cs",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Models\\DocumentoFaltante.cs",
+              "RelativeToolTip": "GerenciamentoCatequese\\Models\\DocumentoFaltante.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T14:14:42.218Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GerenciamentoService.cs",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Interfaces\\GerenciamentoService.cs",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Interfaces\\GerenciamentoService.cs",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Interfaces\\GerenciamentoService.cs",
+              "RelativeToolTip": "GerenciamentoCatequese\\Interfaces\\GerenciamentoService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAABhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T20:35:53.932Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Catequizando.cs",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Models\\Catequizando.cs",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Models\\Catequizando.cs",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Models\\Catequizando.cs",
+              "RelativeToolTip": "GerenciamentoCatequese\\Models\\Catequizando.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-14T20:33:11.346Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DocumentosFaltantes.cshtml",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\DocumentosFaltantes.cshtml",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Pages\\DocumentosFaltantes.cshtml",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\DocumentosFaltantes.cshtml",
+              "RelativeToolTip": "GerenciamentoCatequese\\Pages\\DocumentosFaltantes.cshtml",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAAAG8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-14T20:17:47.14Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Logout.cshtml",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\Logout.cshtml",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Pages\\Logout.cshtml",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\Logout.cshtml",
+              "RelativeToolTip": "GerenciamentoCatequese\\Pages\\Logout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-03T19:37:18.469Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Pages\\Index.cshtml.cs",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\Index.cshtml.cs",
+              "RelativeToolTip": "GerenciamentoCatequese\\Pages\\Index.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T21:08:01.703Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "UsuarioService.cs",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Interfaces\\UsuarioService.cs",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Interfaces\\UsuarioService.cs",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Interfaces\\UsuarioService.cs",
+              "RelativeToolTip": "GerenciamentoCatequese\\Interfaces\\UsuarioService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T21:07:54.257Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "UsuarioRepository.cs",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Repositories\\UsuarioRepository.cs",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Repositories\\UsuarioRepository.cs",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Repositories\\UsuarioRepository.cs",
+              "RelativeToolTip": "GerenciamentoCatequese\\Repositories\\UsuarioRepository.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAASwC0AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T21:04:08.049Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Logout.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\Logout.cshtml.cs",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Pages\\Logout.cshtml.cs",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\Logout.cshtml.cs",
+              "RelativeToolTip": "GerenciamentoCatequese\\Pages\\Logout.cshtml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-03T19:37:23.652Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Pages\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "GerenciamentoCatequese\\Pages\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABoAAAB0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-30T19:17:28.951Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\Index.cshtml",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Pages\\Index.cshtml",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\Index.cshtml",
+              "RelativeToolTip": "GerenciamentoCatequese\\Pages\\Index.cshtml",
+              "ViewState": "AgIAACgAAAAAAAAAAAAhwI4AAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-02-03T18:21:56.629Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Login.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\Login.cshtml.cs",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Pages\\Login.cshtml.cs",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\Login.cshtml.cs",
+              "RelativeToolTip": "GerenciamentoCatequese\\Pages\\Login.cshtml.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAwwCMAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-30T19:23:57.058Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Turma.cs",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Models\\Turma.cs",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Models\\Turma.cs",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Models\\Turma.cs",
+              "RelativeToolTip": "GerenciamentoCatequese\\Models\\Turma.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T13:59:01.843Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "GerenciamentoCatequese.csproj",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\GerenciamentoCatequese.csproj",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\GerenciamentoCatequese.csproj",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\GerenciamentoCatequese.csproj",
+              "RelativeToolTip": "GerenciamentoCatequese\\GerenciamentoCatequese.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-01-30T19:16:26.385Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Login.cshtml",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\Login.cshtml",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Pages\\Login.cshtml",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Pages\\Login.cshtml",
+              "RelativeToolTip": "GerenciamentoCatequese\\Pages\\Login.cshtml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABMAAAB0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-30T19:18:37.273Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Program.cs",
+              "RelativeDocumentMoniker": "GerenciamentoCatequese\\Program.cs",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\GerenciamentoCatequese\\GerenciamentoCatequese\\Program.cs",
+              "RelativeToolTip": "GerenciamentoCatequese\\Program.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-30T19:16:38.351Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\WizardRazor\\Program.cs",
+              "RelativeDocumentMoniker": "..\\WizardRazor\\Program.cs",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\WizardRazor\\Program.cs",
+              "RelativeToolTip": "..\\WizardRazor\\Program.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-30T18:32:15.069Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\vitoo\\source\\repos\\WizardRazor\\appsettings.json",
+              "RelativeDocumentMoniker": "..\\WizardRazor\\appsettings.json",
+              "ToolTip": "C:\\Users\\vitoo\\source\\repos\\WizardRazor\\appsettings.json",
+              "RelativeToolTip": "..\\WizardRazor\\appsettings.json",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-01-30T18:32:09.268Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
