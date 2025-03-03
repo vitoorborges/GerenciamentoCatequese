@@ -1,3 +1,5 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using GerenciamentoCatequese.Interfaces;
 using GerenciamentoCatequese.Models;
 using GerenciamentoCatequese.Repositories;
@@ -10,6 +12,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddNotyf(config =>
+{
+    config.DurationInSeconds = 10;
+    config.IsDismissable = true;
+    config.Position = NotyfPosition.TopRight;
+});
+
 builder.Services.AddScoped<IUsuarioService,UsuarioRepository>();
 builder.Services.AddScoped<IGerenciamentoService,GerenciamentoRespository>();
 builder.Services.AddScoped<IFileManager,FileManager>();
@@ -50,6 +60,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseNotyf();
 app.MapRazorPages();
 
 app.Run();

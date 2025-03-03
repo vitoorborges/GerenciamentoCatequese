@@ -13,7 +13,7 @@ namespace GerenciamentoCatequese.Pages
         private readonly IFileManager _file;
 
         public IEnumerable<UsuarioModel> _usuarios;
-        public IEnumerable<RegistroDocumentosFaltantesTabela> _documentosFaltantes {  get; set; }
+        public IEnumerable<Catequisando> _catquisando {  get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, IUsuarioService usuarioService, IGerenciamentoService gerenciamentoService, IFileManager file)
         {
@@ -25,22 +25,28 @@ namespace GerenciamentoCatequese.Pages
 
         public async Task<IActionResult> OnGet()
         {
-            _documentosFaltantes = await _gerenciamentoService.PesquisaRegistros();
+            _catquisando = await _gerenciamentoService.PesquisaCatequisando();
             return Page();
         }
 
-        public async Task<IActionResult> OnGetGerarArquivo()
-        {
-            _documentosFaltantes = await _gerenciamentoService.PesquisaRegistros();
-            var retornoExcel = await _file.GerarExecel(_documentosFaltantes);
+        //public async Task<IActionResult> OnGetGerarArquivo()
+        //{
+        //    _documentosFaltantes = await _gerenciamentoService.PesquisaRegistros();
+        //    var retornoExcel = await _file.GerarExecel(_documentosFaltantes);
             
-            var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        //    var contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
-            var fileName = "DocumentosFaltantes.xlsx";
+        //    var fileName = "DocumentosFaltantes.xlsx";
 
-            var retornoArquivo = await _file.GerarArquivo(retornoExcel);
+        //    var retornoArquivo = await _file.GerarArquivo(retornoExcel);
 
-            return File(retornoArquivo, contentType, fileName);
-        }
+        //    return File(retornoArquivo, contentType, fileName);
+        //}
+
+        //public async Task<IActionResult> OnGetFinalizar(int IdCatequizando)
+        //{
+        //    await _gerenciamentoService.FinalizarRegistro(IdCatequizando);
+        //    return RedirectToPage("Index");
+        //}
     }
 }

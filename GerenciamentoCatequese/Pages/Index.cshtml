@@ -23,69 +23,123 @@
             <div class="card-body">
 
                 <div class="container-xl mb-4">
-                    <div class="mb-3" style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3>Relação de catequizandos com documentos faltantes</h3>
-                        <form method="get" asp-page="DocumentosFaltantes">
-                            <button type="submit" class="btn btn-6 btn-primary active w-20">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-plus">
+                    <div class="mb-3 div-itens" style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 class="titulo-card">Relação de catequizandos com documentos faltantes</h3>
+                        <div style="display:flex">
+
+                            <form method="get" asp-page="Catequisando">
+                                <button type="submit" class="btn btn-6 btn-primary active w-20 btn-custom">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-plus">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+                                        <path d="M15 12h-6" />
+                                        <path d="M12 9v6" />
+                                    </svg>
+                                    Adicionar
+                                </button>
+                            </form>
+                            <a asp-page-handler="GerarArquivo" class="btn btn-6 btn-primary active w-20 btn-custom" style="margin-left:10px">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
-                                    <path d="M15 12h-6" />
-                                    <path d="M12 9v6" />
+                                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                                    <path d="M7 11l5 5l5 -5" />
+                                    <path d="M12 4l0 12" />
                                 </svg>
-                                Adicionar
-                            </button>
-                        </form>
+                                Baixar Arquivo
+                            </a>
+                        </div>
                     </div>
 
-                   
 
                     <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <input type="text" id="searchNome" class="form-control" placeholder="Filtrar por Nome">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <select id="filterTurma" class="form-control">
-                                            <option value="">Todas as Turmas</option>
-                                        </select>
+                        <div class="card">                           
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="text" id="searchNome" class="form-control" placeholder="Filtrar por Nome">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <select id="filterTurma" class="form-control">
+                                                <option value="">Todas as Turmas</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="table-responsive">
-                                <table class="table table-vcenter card-table table-striped" id="tableData">
-                                    <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th>Turma</th>
-                                            <th>Documento(s) Faltante(s)</th>
-                                            <th>Ação</th>
-                                            <th>Ação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in Model._documentosFaltantes)
-                                        {
+                                <div class="table-responsive">
+                                    <table class="table table-vcenter card-table table-striped" id="tableData">
+                                        <thead>
                                             <tr>
-                                                <td class="nome">@item.NomeCatequizando</td>
-                                                <td class="turma text-secondary">@item.DescricaoTurma</td>
-                                                <td class="text-secondary">@item.DescricaoDocumentosFaltantes</td>
-                                                <td>
-                                                    <input type="hidden" value="@item.IdCatequizando" class="id-documento" />
-                                                    <a class="edit-link" href="#">Editar</a>
-                                                </td>
-                                                <td>
-                                                    <a class="edit-link2" asp-page-handler="GerarArquivo">
-                                                        📥 Baixar Arquivo
-                                                    </a>
-                                                </td>
+                                                <th>Nome</th>
+                                                <th>Turma</th>
+                                                <th>Documento(s) Faltante(s)</th>
+                                                <th></th>
                                             </tr>
-                                        }
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model._catquisando)
+                                            {
+                                                <tr>
+                                                    <td class="nome">@item.NomeCatequisando</td>
+                                                    <td class="turma text-secondary">@item.IdTurma</td>
+                                                    <td class="text-secondary">@item.NomeCatequisando</td>
+                                                    <td>
+                                                        <div class="btn-list flex-nowrap">
+                                                            <div class="dropdown">
+                                                                <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
+                                                                    Ações
+                                                                </button>
+                                                                <div class="dropdown-menu dropdown-menu-end">
+                                                                    <a class="dropdown-item edit-link" >Editar</a>
+                                                                <input type="hidden" value="@item.NomeCatequisando" class="id-documento" />
+                                                                <a class="dropdown-item" href="#" onclick="abrirModal(@item.IdCatequisando)">
+                                                                    Finalizar
+                                                                </a>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+
+    
+
+    <div class="modal modal-blur fade" id="modalFinalizar" tabindex="-1" style="display: none; opacity:revert; z-index: 8001;" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-status bg-danger"></div>
+                <div class="modal-body text-center py-4">
+                    <!-- Download SVG icon from http://tabler.io/icons/icon/alert-triangle -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mb-2 text-danger icon-lg"><path d="M12 9v4"></path><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z"></path><path d="M12 16h.01"></path></svg>
+                    <h3>Atenção</h3>
+                    <div class="text-secondary">Tem certeza que o catequisando enviou toda documentação?</div>
+                </div>
+                <div class="modal-footer">
+                    <div class="w-100">
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="btn btn-3 w-100" data-bs-dismiss="modal">
+                                    Cancelar
+                                </a>
+                            </div>
+                            <div class="col">
+                                <button type="button"  id="confirmarFinalizar" class="btn btn-warning btn-4 w-100" data-bs-dismiss="modal">
+                                    Confirmar
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -137,7 +191,7 @@
         filterTurma.addEventListener("change", filtrarTabela);
     });
 
-            document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".edit-link").forEach(link => {
             link.addEventListener("click", function (event) {
                 event.preventDefault(); // Evita o comportamento padrão do link
@@ -149,6 +203,19 @@
                 window.location.href = "/DocumentosFaltantes?id=" + encodeURIComponent(idDocumento);
             });
         });
+    });
+
+            let idParaFinalizar = null;
+
+    function abrirModal(id) {
+        idParaFinalizar = id; 
+        $('#modalFinalizar').modal('show');
+    }
+
+    document.getElementById('confirmarFinalizar').addEventListener('click', function() {
+        if (idParaFinalizar !== null) {
+            window.location.href = "/Index?handler=Finalizar&IdCatequizando=" + encodeURIComponent(idParaFinalizar);
+        }
     });
 
 </script>

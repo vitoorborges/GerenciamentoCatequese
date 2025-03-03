@@ -6,7 +6,7 @@ namespace GerenciamentoCatequese.Interfaces
     public interface IFileManager
     {
 
-        Task<DataTable> GerarExecel(IEnumerable<RegistroDocumentosFaltantesTabela> registro);
-        Task<MemoryStream> GerarArquivo(DataTable tabela);
+        //Task<DataTable> GerarExecel(IEnumerable<RegistroDocumentosFaltantesTabela> registro);
+        //Task<MemoryStream> GerarArquivo(DataTable tabela);
     }
 }

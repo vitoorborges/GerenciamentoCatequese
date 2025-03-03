@@ -1,0 +1,1057 @@
+﻿@page
+@model GerenciamentoCatequese.Pages.CatequisandoModel
+@{
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste</title>
+
+</head>
+
+
+<body>
+    <div class="mt-4">
+        <h1 style="text-align: center">Cadastro do Catequisando</h1>
+    </div>
+
+    <div class="card-body">
+        <ul class="steps steps-green steps-counter my-4">
+            <li class="step-item active">Dados Pessoais</li>
+            <li class="step-item">Responsáveis</li>
+            <li class="step-item">Documentação</li>
+        </ul>
+    </div>
+
+    <div id="DadosPessoais" class="mt-4">
+        <div class=" card card-md container-narrow py-2 px-2">
+            <form id="SalvarDadosPessoais" method="post" asp-page-handler="SalvarDadosPessoais">
+                <div class="card-body" style="width:auto; height:auto">
+
+                    <div>
+                        <h3 style="text-align: center">Dados pessoais</h3>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Nome completo</div>
+                                <input asp-for="@Model._catequisando.NomeCatequisando" type="Text" required placeholder="Informe o nome completo do catequisando" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Turma</div>
+                                <select asp-for="@Model._catequisando.IdTurma" id="TurmaCrismando" class="form-select">
+                                    <option disabled selected value="">Selecione uma opção</option>
+                                    @foreach (var item in Model._turmas)
+                                    {
+                                        <option value="@item.IdTurma">@item.DescricaoTurma</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Data de Nascimento</div>
+                                <input asp-for="@Model._catequisando.DataNascimento" id="dataNascimento" type="date" required class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- UF do Nascimento -->
+                        <div class="col">
+                            <label class="form-label">UF</label>
+                            <div class="row g-2">
+                                <div class="col">
+                                    <select asp-for="@Model._catequisando.UFNaturalidade" id="ufNascimento" class="form-select" onchange="carregarMunicipiosNascimento()">
+                                        <option disabled selected value="">Selecione uma opção</option>
+                                        <option value="AC">AC</option>
+                                        <option value="AL">AL</option>
+                                        <option value="AP">AP</option>
+                                        <option value="AM">AM</option>
+                                        <option value="BA">BA</option>
+                                        <option value="CE">CE</option>
+                                        <option value="DF">DF</option>
+                                        <option value="ES">ES</option>
+                                        <option value="GO">GO</option>
+                                        <option value="MA">MA</option>
+                                        <option value="MT">MT</option>
+                                        <option value="MS">MS</option>
+                                        <option value="MG">MG</option>
+                                        <option value="PA">PA</option>
+                                        <option value="PB">PB</option>
+                                        <option value="PR">PR</option>
+                                        <option value="PE">PE</option>
+                                        <option value="PI">PI</option>
+                                        <option value="RJ">RJ</option>
+                                        <option value="RN">RN</option>
+                                        <option value="RS">RS</option>
+                                        <option value="RO">RO</option>
+                                        <option value="RR">RR</option>
+                                        <option value="SC">SC</option>
+                                        <option value="SP">SP</option>
+                                        <option value="SE">SE</option>
+                                        <option value="TO">TO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Município do Nascimento -->
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Município</div>
+                                <select asp-for="@Model._catequisando.MunicipioNaturalidade" id="municipioNascimento" class="form-select">
+                                    <option value="">Selecione um município</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <!-- Campo Batizado -->
+                        <div class="col" style="max-inline-size: 15%">
+                            <div class="mb-3">
+                                <div class="form-label">Possui batismo?</div>
+                                <label class="form-check form-switch form-switch-3 mt-3">
+                                    <input asp-for="@Model._catequisando.Batizado" id="batizadoCheckbox" class="form-check-input" type="checkbox" onchange="toggleBatismoFields()">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Data do Batismo -->
+                        <div class="col" style="max-inline-size: 15%">
+                            <div class="mb-3">
+                                <div class="form-label">Data do Batismo</div>
+                                <input asp-for="@Model._catequisando.DataBatismo" disabled id="dataBatismo" type="date" required class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- UF do Batismo -->
+                        <div class="col" style="max-inline-size: 18%">
+                            <label class="form-label">UF</label>
+                            <div class="row g-2">
+                                <div class="col">
+                                    <select asp-for="@Model._catequisando.UFBatismo" disabled id="ufBatismo" class="form-select" onchange="carregarMunicipiosBatismo()">
+                                        <option disabled selected value="">Selecione uma opção</option>
+                                        <option value="AC">AC</option>
+                                        <option value="AL">AL</option>
+                                        <option value="AP">AP</option>
+                                        <option value="AM">AM</option>
+                                        <option value="BA">BA</option>
+                                        <option value="CE">CE</option>
+                                        <option value="DF">DF</option>
+                                        <option value="ES">ES</option>
+                                        <option value="GO">GO</option>
+                                        <option value="MA">MA</option>
+                                        <option value="MT">MT</option>
+                                        <option value="MS">MS</option>
+                                        <option value="MG">MG</option>
+                                        <option value="PA">PA</option>
+                                        <option value="PB">PB</option>
+                                        <option value="PR">PR</option>
+                                        <option value="PE">PE</option>
+                                        <option value="PI">PI</option>
+                                        <option value="RJ">RJ</option>
+                                        <option value="RN">RN</option>
+                                        <option value="RS">RS</option>
+                                        <option value="RO">RO</option>
+                                        <option value="RR">RR</option>
+                                        <option value="SC">SC</option>
+                                        <option value="SP">SP</option>
+                                        <option value="SE">SE</option>
+                                        <option value="TO">TO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Município do Batismo -->
+                        <div class="col" style="max-inline-size: 25%">
+                            <div class="mb-3">
+                                <div class="form-label">Município</div>
+                                <select asp-for="@Model._catequisando.MunicipioBatismo" disabled id="municipioBatismo" class="form-select">
+                                    <option value="">Selecione um município</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Paróquia do Batismo -->
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Paróquia</div>
+                                <input asp-for="@Model._catequisando.ParoquiBatismo" disabled id="paroquiaBatismo" type="text" required class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seção de Eucaristia -->
+                    <div class="row mt-3">
+                        <!-- Campo Eucaristia -->
+                        <div class="col" style="max-inline-size: 15%">
+                            <div class="mb-3">
+                                <div class="form-label">Possui primeira Eucaristia?</div>
+                                <label class="form-check form-switch form-switch-3 mt-3">
+                                    <input asp-for="@Model._catequisando.Eucaristia" id="eucaristiaCheckbox" class="form-check-input" type="checkbox" onchange="toggleEucaristiaFields()">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Data da Eucaristia -->
+                        <div class="col" style="max-inline-size: 15%">
+                            <div class="mb-3">
+                                <div class="form-label">Data da Eucaristia</div>
+                                <input asp-for="@Model._catequisando.DataEucaristia" disabled id="dataEucaristia" type="date" required class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- UF da Eucaristia -->
+                        <div class="col" style="max-inline-size: 18%">
+                            <label class="form-label">UF</label>
+                            <div class="row g-2">
+                                <div class="col">
+                                    <select asp-for="@Model._catequisando.UFEucatistia" disabled id="ufEucaristia" class="form-select" onchange="carregarMunicipiosEucaristia()">
+                                        <option disabled selected value="">Selecione uma opção</option>
+                                        <option value="AC">AC</option>
+                                        <option value="AL">AL</option>
+                                        <option value="AP">AP</option>
+                                        <option value="AM">AM</option>
+                                        <option value="BA">BA</option>
+                                        <option value="CE">CE</option>
+                                        <option value="DF">DF</option>
+                                        <option value="ES">ES</option>
+                                        <option value="GO">GO</option>
+                                        <option value="MA">MA</option>
+                                        <option value="MT">MT</option>
+                                        <option value="MS">MS</option>
+                                        <option value="MG">MG</option>
+                                        <option value="PA">PA</option>
+                                        <option value="PB">PB</option>
+                                        <option value="PR">PR</option>
+                                        <option value="PE">PE</option>
+                                        <option value="PI">PI</option>
+                                        <option value="RJ">RJ</option>
+                                        <option value="RN">RN</option>
+                                        <option value="RS">RS</option>
+                                        <option value="RO">RO</option>
+                                        <option value="RR">RR</option>
+                                        <option value="SC">SC</option>
+                                        <option value="SP">SP</option>
+                                        <option value="SE">SE</option>
+                                        <option value="TO">TO</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Município da Eucaristia -->
+                        <div class="col" style="max-inline-size: 25%">
+                            <div class="mb-3">
+                                <div class="form-label">Município</div>
+                                <select asp-for="@Model._catequisando.MunicipioEucaristia" disabled id="municipioEucaristia" class="form-select">
+                                    <option value="">Selecione um município</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Paróquia da Eucaristia -->
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Paróquia</div>
+                                <input asp-for="@Model._catequisando.ParoquiaEucaristia" disabled id="paroquiaEucaristia" type="text" required class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Seção de Pastoral -->
+                    <div class="row mt-3">
+                        <!-- Campo Pastoral -->
+                        <div class="col" style="max-inline-size: 15%">
+                            <div class="mb-3">
+                                <div class="form-label">Participa de pastoral?</div>
+                                <label class="form-check form-switch form-switch-3 mt-3">
+                                    <input asp-for="@Model._catequisando.Pastoral" id="pastoralCheckbox" class="form-check-input" type="checkbox" onchange="togglePastoralFields()">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Descrição da pastoral -->
+                        <div class="col" style="max-inline-size: 15%">
+                            <div class="mb-3">
+                                <div class="form-label">Pastoral que atua</div>
+                                <input asp-for="@Model._catequisando.DescricaoPastoral" disabled id="DescricaoPastoral" type="text" required class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Telefone residendical do catequisando -->
+                        <div class="col" style="max-inline-size: 18%">
+                            <div class="mb-3">
+                                <div class="form-label">Telefone residencial</div>
+                                <input asp-for="@Model._catequisando.TelefoneResidencial" id="ResidencialCatequisando" type="text" required class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Telefone celular do catequisando -->
+                        <div class="col" style="max-inline-size: 25%">
+                            <div class="mb-3">
+                                <div class="form-label">Telefone celular</div>
+                                <input asp-for="@Model._catequisando.TelefoneCelular" id="CelularCatequisando" type="text" required class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- E-mail do catequisando -->
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">E-mail</div>
+                                <input asp-for="@Model._catequisando.Email" id="EmailCatequisando" type="text" required class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="mt-4">
+                        <h3 style="text-align: center">Endereço Residencial</h3>
+                    </div>
+
+                    <div class="row mt-4">
+                        <!-- CEP -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="cep" class="form-label">CEP</label>
+                                <input asp-for="@Model._catequisando.CepEndereco" type="text" id="cep" class="form-control" placeholder="Digite o CEP" onblur="buscarEndereco()">
+                            </div>
+                        </div>
+
+                        <!-- UF -->
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="uf" class="form-label">UF</label>
+                                <input asp-for="@Model._catequisando.UFEndereco" type="text" id="uf" class="form-control" placeholder="UF" readonly>
+                            </div>
+                        </div>
+
+                        <!-- Logradouro (preenchido automaticamente) -->
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="logradouro" class="form-label">Logradouro</label>
+                                <input asp-for="@Model._catequisando.LogradouroEndereco" type="text" id="logradouro" class="form-control" placeholder="Logradouro" readonly>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Bairro -->
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="bairro" class="form-label">Bairro</label>
+                                <input asp-for="@Model._catequisando.BairroEndereco" type="text" id="bairro" class="form-control" placeholder="Bairro" readonly>
+                            </div>
+                        </div>
+
+                        <!-- Cidade -->
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="cidade" class="form-label">Cidade</label>
+                                <input asp-for="@Model._catequisando.CidadeEndereco" type="text" id="cidade" class="form-control" placeholder="Cidade" readonly>
+                            </div>
+                        </div>
+
+                        <!-- Número (editável) -->
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label for="numero" class="form-label">Número</label>
+                                <input asp-for="@Model._catequisando.NumeroEndereco" type="text" id="numero" class="form-control" placeholder="Número">
+                            </div>
+                        </div>
+
+                        <!-- Complemento (editável) -->
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="complemento" class="form-label">Complemento</label>
+                                <input asp-for="@Model._catequisando.ComplementoEndereco" type="text" id="complemento" class="form-control" placeholder="Complemento">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+                    <div class="mt-2" style="display: flex; justify-content: space-between; align-items: center;">
+                        <a class="btn btn-primary btn-3" href="./Index"> Voltar</a>
+                        <button class="btn btn-success btn-3" type="button" onclick="startProcess()">Prosseguir</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="DadosResponsaveis" style="display:none" class="mt-4">
+        <div class=" card card-md container-narrow py-2 px-2">
+            <form method="post">
+                <div class="card-body" style="width:auto; height:auto">
+                    <div class="mb-3 div-itens" style="display: flex; justify-content: center; align-items: center; position: relative; padding-right: 80px;">
+                        <h3 style="margin: 0;">Dados dos responsáveis</h3>
+                        <button type="button" class="btn btn-6 btn-primary active w-20 btn-custom" onclick="abrirModal()"
+                                style="position: absolute; right: 0;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-plus">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+                                <path d="M15 12h-6" />
+                                <path d="M12 9v6" />
+                            </svg>
+                            Adicionar
+                        </button>
+                    </div>
+
+
+                    <div class="table-responsive mt-5">
+                        <table class="table table-vcenter card-table table-striped" id="tableData">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Turma</th>
+                                    <th>Documento(s) Faltante(s)</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="nome">Não há ítens cadastrados</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+
+                    <div class="mt-4" style="display: flex; justify-content: space-between; align-items: center;">
+                        <button class="btn btn-primary btn-3" type="button" onclick="step('DadosResponsaveis', 'DadosPessoais', 0)">Voltar</button>
+                        <button class="btn btn-success btn-3" type="button" onclick="step('DadosResponsaveis', 'DadosPagamento', 2)">Prosseguir</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="DadosPagamento" class="mt-4" style="display:none">
+        <div class="card card-md container-narrow py-2 px-2">
+            <div class="card-body">
+                <h3 style="text-align: center">Dados da documentação</h3>
+
+                @foreach (var item in Model._documentos)
+                {
+                    <div class="row mt-3">
+                        <!-- Nome do Documento -->
+                        <div class="col" style="max-inline-size: 20%">
+                            <div class="mb-3">
+                                <div class="form-label">@item.DescricaoTipoDocumento</div>
+                                <label class="form-check form-switch form-switch-3 mt-3">
+                                    <input type="checkbox" class="form-check-input documento-checkbox" data-id="@item.IdTipoDocumento">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Local do Documento -->
+                        <div class="col">
+                            <label class="form-label">Local do documento não entregue</label>
+                            <select class="form-select documento-local" data-id="@item.IdTipoDocumento">
+                                <option disabled selected value="">Selecione uma opção</option>
+                                <option value="AC">AC</option>
+                                <option value="SP">SP</option>
+                                <option value="RJ">RJ</option>
+                            </select>
+                        </div>
+                    </div>
+                }
+
+                <h3 style="text-align: center">Dados do pagamento</h3>
+
+                <form method="post" asp-page-handler="SalvarDocumentos">
+                    <div class="row mt-3">
+                        <div class="col" style="max-inline-size: 20%">
+                            <div class="mb-3">
+                                <div class="form-label">Tipo de pagamento</div>
+                                <div>
+                                    <label class="form-check form-check-inline">
+                                        <input class="form-check-input" value="1" type="radio" name="radios-inline">
+                                        <span class="form-check-label">Pix</span>
+                                    </label>
+                                    <label class="form-check form-check-inline">
+                                        <input class="form-check-input" value="2" type="radio" name="radios-inline">
+                                        <span class="form-check-label">Dinheiro</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Responsavel pelo pagamento</div>
+                                <input id="ResponsavelPagamento" type="text" required class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Data do Pagamento</div>
+                                <input id="DataPagamento" type="date" required class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="mt-2" style="display: flex; justify-content: space-between; align-items: center;">
+                    <button class="btn btn-primary btn-3" type="button" onclick="retornar2()">Voltar</button>
+                    <button type="button" class="btn btn-success" onclick="salvarDocumentos()">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-blur fade" id="modal-responsavel" tabindex="-1" style="display: none; opacity:revert; z-index: 8001;" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div style="max-width:1000px" class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Novo cadastro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mt-1">
+                        <h3 style="text-align: center">Dados Pessoais</h3>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Nome completo</div>
+                                <input type="Text" required placeholder="Informe o nome completo do responsável" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Parentesco</div>
+                                <select id="ParentescoResponsavel" class="form-select">
+                                    <option disabled selected value="">Selecione uma opção</option>
+                                    @foreach (var item in Model._turmas)
+                                    {
+                                        <option value="@item.IdTurma">@item.DescricaoTurma</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Data de Nascimento</div>
+                                <input id="DataNascimento" type="date" required class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+                        <!-- Campo Batizado -->
+                        <div class="col md-4">
+                            <div class="mb-3">
+                                <div class="form-label">Religião</div>
+                                <input type="Text" required placeholder="Informe a religião" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col md-4">
+                            <div class="mb-3">
+                                <div class="form-label">Profissão</div>
+                                <input type="Text" required placeholder="Informe a profissão" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Data do casamento</div>
+                                <input id="DataCasamento" type="date" required class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-3">
+                        <h3 style="text-align: center">Sacramentos e pastorais</h3>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Possui batismo?</div>
+                                <label class="form-check form-switch form-switch-3 mt-3">
+                                    <input id="batizadoResponsavel" class="form-check-input" type="checkbox">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Possui Eucaristia?</div>
+                                <label class="form-check form-switch form-switch-3 mt-3">
+                                    <input id="eucatistiaResponsavel" class="form-check-input" type="checkbox">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Possui Crisma?</div>
+                                <label class="form-check form-switch form-switch-3 mt-3">
+                                    <input id="crismaResponsavel" class="form-check-input" type="checkbox">
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Possui Matrimônio?</div>
+                                <label class="form-check form-switch form-switch-3 mt-3">
+                                    <input id="matrimonioResponsavel" class="form-check-input" type="checkbox">
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-3">
+
+                        <div class="col" style="max-inline-size: 15%">
+                            <div class="mb-3">
+                                <div class="form-label">Dizimista?</div>
+                                <label class="form-check form-switch form-switch-3 mt-3">
+                                    <input id="CheckboxDizimistaResponsavel" class="form-check-input" type="checkbox">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Campo Pastoral -->
+                        <div class="col" style="max-inline-size: 20%">
+                            <div class="mb-3">
+                                <div class="form-label">Participa de pastoral?</div>
+                                <label class="form-check form-switch form-switch-3 mt-3">
+                                    <input id="CheckboxPastoralResponsavel" class="form-check-input" type="checkbox" onchange="togglePastoralResponsavelFields()">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Descrição da pastoral -->
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Pastoral que atua</div>
+                                <input id="DescricaoPastoralResponsavel" type="text" disabled class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Telefone celular do responsavel -->
+                        <div class="col">
+                            <div class="mb-3">
+                                <div class="form-label">Telefone celular</div>
+                                <input id="CelularResponsavel" type="text" required class="form-control">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary link-secondary btn-3" data-bs-dismiss="modal"> Cancel </a>
+                <a href="#" class="btn btn-success btn-5 ms-auto" data-bs-dismiss="modal">
+                    <!-- Download SVG icon from http://tabler.io/icons/icon/plus -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-2">
+                        <path d="M12 5l0 14"></path>
+                        <path d="M5 12l14 0"></path>
+                    </svg>
+                    Salvar
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+
+
+
+        function startProcess() {
+            // Captura os dados do formulário
+            let formData = new FormData(document.getElementById('SalvarDadosPessoais'));
+
+            // Converte o FormData para URL-encoded
+            const params = new URLSearchParams();
+            formData.forEach((value, key) => {
+                params.append(key, value);
+            });
+
+            // Criação da requisição XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/Catequisando?handler=SalvarDadosPessoais', true);  // Ajuste a URL conforme necessário
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            // Obtém o token de verificação
+            var token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+            xhr.setRequestHeader('RequestVerificationToken', token);
+
+            // Define a função de callback para quando o estado da requisição mudar
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Sucesso no processamento da resposta
+                        var data = JSON.parse(xhr.responseText);
+                        // Aqui você pode acessar os dados retornados se necessário
+                        alert("✅ " + data.message);  // Exemplo de mensagem de sucesso
+
+                        // Chama o método step para avançar no processo
+                        step('DadosPessoais', 'DadosResponsaveis', 1);  // Exemplo de como usar a função step
+                    } else {
+                        console.error('Erro:', xhr.statusText);
+                        alert("❌ Erro ao processar a requisição");
+                    }
+                }
+            };
+
+            // Envia os dados do formulário no formato URL-encoded
+            xhr.send(params.toString());
+        }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const inputResidencial = document.getElementById("ResidencialCatequisando");
+
+        inputResidencial.addEventListener("input", function () {
+            let valor = inputResidencial.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+            if (valor.length > 10) valor = valor.slice(0, 10); // Limita a 10 caracteres
+
+            // Aplica a máscara (99) 9999-9999
+            if (valor.length >= 10) {
+                valor = valor.replace(/^(\d{2})(\d{4})(\d{4})$/, "($1) $2-$3");
+            } else if (valor.length >= 7) {
+                valor = valor.replace(/^(\d{2})(\d{4})(\d{0,4})$/, "($1) $2-$3");
+            } else if (valor.length >= 3) {
+                valor = valor.replace(/^(\d{2})(\d{0,4})$/, "($1) $2");
+            } else if (valor.length >= 1) {
+                valor = valor.replace(/^(\d{0,2})$/, "($1");
+            }
+
+            inputResidencial.value = valor;
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const inputCelular = document.getElementById("CelularCatequisando");
+
+        inputCelular.addEventListener("input", function () {
+            let valor = inputCelular.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+            if (valor.length > 11) valor = valor.slice(0, 11); // Limita a 11 caracteres
+
+            // Aplica a máscara (99) 99999-9999
+            if (valor.length >= 11) {
+                valor = valor.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+            } else if (valor.length >= 7) {
+                valor = valor.replace(/^(\d{2})(\d{4})(\d{0,4})$/, "($1) $2-$3");
+            } else if (valor.length >= 3) {
+                valor = valor.replace(/^(\d{2})(\d{0,5})$/, "($1) $2");
+            } else if (valor.length >= 1) {
+                valor = valor.replace(/^(\d{0,2})$/, "($1");
+            }
+
+            inputCelular.value = valor;
+        });
+    });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const inputCelularResponsavel = document.getElementById("CelularResponsavel");
+
+        inputCelularResponsavel.addEventListener("input", function () {
+            let valor = inputCelularResponsavel.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+            if (valor.length > 11) valor = valor.slice(0, 11); // Limita a 11 caracteres
+
+            // Aplica a máscara (99) 99999-9999
+            if (valor.length >= 11) {
+                valor = valor.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+            } else if (valor.length >= 7) {
+                valor = valor.replace(/^(\d{2})(\d{4})(\d{0,4})$/, "($1) $2-$3");
+            } else if (valor.length >= 3) {
+                valor = valor.replace(/^(\d{2})(\d{0,5})$/, "($1) $2");
+            } else if (valor.length >= 1) {
+                valor = valor.replace(/^(\d{0,2})$/, "($1");
+            }
+
+            inputCelularResponsavel.value = valor;
+        });
+    });
+
+        function toggleBatismoFields() {
+        // Obtém o estado do checkbox "Batizado"
+        const batizado = document.getElementById("batizadoCheckbox").checked;
+
+        // Seleciona os campos relacionados ao batismo
+        const dataBatismo = document.getElementById("dataBatismo");
+        const ufBatismo = document.getElementById("ufBatismo");
+        const municipioBatismo = document.getElementById("municipioBatismo");
+        const paroquiaBatismo = document.getElementById("paroquiaBatismo");
+
+        // Se não estiver batizado, desabilita os campos; caso contrário, habilita
+        dataBatismo.disabled = !batizado;
+        ufBatismo.disabled = !batizado;
+        municipioBatismo.disabled = !batizado;
+        paroquiaBatismo.disabled = !batizado;
+    }
+
+        function toggleEucaristiaFields() {
+        // Obtém o estado do checkbox Eucaristia
+        const eucaristia = document.getElementById("eucaristiaCheckbox").checked;
+
+        // Seleciona os campos relacionados à Eucaristia
+        const dataEucaristia = document.getElementById("dataEucaristia");
+        const ufEucaristia = document.getElementById("ufEucaristia");
+        const municipioEucaristia = document.getElementById("municipioEucaristia");
+        const paroquiaEucaristia = document.getElementById("paroquiaEucaristia");
+
+        // Desabilita ou habilita os campos de acordo com o estado do checkbox
+        dataEucaristia.disabled = !eucaristia;
+        ufEucaristia.disabled = !eucaristia;
+        municipioEucaristia.disabled = !eucaristia;
+        paroquiaEucaristia.disabled = !eucaristia;
+    }
+
+    function togglePastoralFields() {
+        // Obtém o estado do checkbox Eucaristia
+        const pastoral = document.getElementById("pastoralCheckbox").checked;
+
+        // Seleciona os campos relacionados à Eucaristia
+        const DescricaoPastoral = document.getElementById("DescricaoPastoral");
+
+        // Desabilita ou habilita os campos de acordo com o estado do checkbox
+        DescricaoPastoral.disabled = !pastoral;
+    }
+
+     function togglePastoralResponsavelFields() {
+        // Obtém o estado do checkbox Eucaristia
+        const pastoralResponsavel = document.getElementById("CheckboxPastoralResponsavel").checked;
+
+        // Seleciona os campos relacionados à Eucaristia
+        const DescricaoPastoralResponsavel = document.getElementById("DescricaoPastoralResponsavel");
+
+        // Desabilita ou habilita os campos de acordo com o estado do checkbox
+        DescricaoPastoralResponsavel.disabled = !pastoralResponsavel;
+    }
+
+        // Função para carregar municípios para Batismo com base na UF selecionada
+    async function carregarMunicipiosBatismo() {
+        const uf = document.getElementById("ufBatismo").value;
+        const municipioSelect = document.getElementById("municipioBatismo");
+
+        // Limpa as opções existentes
+        municipioSelect.innerHTML = '<option value="">Selecione um município</option>';
+
+        if (!uf) return;
+
+        try {
+            const response = await fetch(`https://brasilapi.com.br/api/ibge/municipios/v1/${uf}`);
+            const municipios = await response.json();
+
+            municipios.forEach(municipio => {
+                const option = document.createElement("option");
+                option.value = municipio.nome;
+                option.textContent = municipio.nome;
+                municipioSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Erro ao carregar municípios para Batismo:", error);
+        }
+    }
+
+        // Função para carregar municípios para Eucaristia com base na UF selecionada
+    async function carregarMunicipiosEucaristia() {
+        const uf = document.getElementById("ufEucaristia").value;
+        const municipioSelect = document.getElementById("municipioEucaristia");
+
+        // Limpa as opções existentes
+        municipioSelect.innerHTML = '<option value="">Selecione um município</option>';
+
+        if (!uf) return;
+
+        try {
+            const response = await fetch(`https://brasilapi.com.br/api/ibge/municipios/v1/${uf}`);
+            const municipios = await response.json();
+
+            municipios.forEach(municipio => {
+                const option = document.createElement("option");
+                option.value = municipio.nome;
+                option.textContent = municipio.nome;
+                municipioSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Erro ao carregar municípios para Eucaristia:", error);
+        }
+    }
+
+         async function carregarMunicipiosNascimento() {
+        const uf = document.getElementById("ufNascimento").value;
+        const municipioSelect = document.getElementById("municipioNascimento");
+
+        // Limpa as opções existentes
+        municipioSelect.innerHTML = '<option value="">Selecione um município</option>';
+
+        if (!uf) return;
+
+        try {
+            // Utiliza a API dos Correios para obter municípios pela UF
+            const response = await fetch(`https://brasilapi.com.br/api/ibge/municipios/v1/${uf}`);
+            const municipios = await response.json();
+
+            // Preenche o select com os municípios
+            municipios.forEach(municipio => {
+                const option = document.createElement("option");
+                option.value = municipio.nome;
+                option.textContent = municipio.nome;
+                municipioSelect.appendChild(option);
+            });
+        } catch (error) {
+            console.error("Erro ao carregar municípios para Nascimento:", error);
+        }
+    }
+
+
+        async function buscarEndereco() {
+      const cep = document.getElementById("cep").value.replace(/\D/g, '');
+
+      if (cep.length !== 8) {
+        alert("CEP inválido!");
+        return;
+      }
+
+      try {
+        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = await response.json();
+
+        if (data.erro) {
+          alert("CEP não encontrado!");
+          return;
+        }
+
+        // Preenche os campos com os dados retornados
+        document.getElementById("logradouro").value = data.logradouro || "";
+        document.getElementById("bairro").value = data.bairro || "";
+        document.getElementById("cidade").value = data.localidade || "";
+        document.getElementById("uf").value = data.uf || "";
+      } catch (error) {
+        console.error("Erro ao buscar endereço:", error);
+      }
+    }
+
+        function step(esconderId, mostrarId, stepIndex) {
+      // Oculta a div especificada
+      document.getElementById(esconderId).style.display = "none";
+
+      // Exibe a div especificada
+      document.getElementById(mostrarId).style.display = "block";
+
+      // Remove a classe "active" de todos os itens do step
+      document.querySelectorAll(".steps .step-item").forEach(item => item.classList.remove("active"));
+
+      // Adiciona a classe "active" ao item do step correspondente
+      let steps = document.querySelectorAll(".steps .step-item");
+      if (steps[stepIndex]) {
+        steps[stepIndex].classList.add("active");
+      }
+    }
+
+
+    function salvarDocumentos() {
+        let documentos = [];
+
+        // Obtendo todos os checkboxes
+        document.querySelectorAll(".documento-checkbox").forEach(checkbox => {
+            let documentoId = checkbox.getAttribute("data-id");
+            let entregue = checkbox.checked;
+
+            // Captura o valor do select correspondente
+            let localDocumentoElement = document.querySelector(`.documento-local[data-id="${documentoId}"]`);
+            let localDocumento = localDocumentoElement ? localDocumentoElement.value : null;
+
+            // Adiciona ao array
+            documentos.push({
+                idTipoDocumento: parseInt(documentoId),
+                entregue: entregue,
+                localDocumento: localDocumento
+            });
+        });
+
+        // Captura os dados do pagamento
+        let IdTipoPagamento = document.querySelector('input[name="radios-inline"]:checked')?.value;
+        let NomeResponsavelPagamento = document.getElementById("ResponsavelPagamento")?.value;
+        let dataPagamento = document.getElementById("DataPagamento")?.value;
+
+        let dadosEnvio = {
+            Documentos: documentos,
+            Pagamento: {
+                IdTipoPagamento: IdTipoPagamento ? parseInt(IdTipoPagamento) : "",
+                NomeResponsavelPagamento: NomeResponsavelPagamento || "",
+                DataPagamento: dataPagamento ? dataPagamento : null
+            }
+        };
+
+        // Obtendo o token de verificação CSRF
+        let tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
+        let token = tokenElement ? tokenElement.value : "";
+
+        // Fazendo a requisição POST
+        fetch('/Catequisando?handler=SalvarDocumentos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': token
+            },
+            body: JSON.stringify(dadosEnvio)
+        })
+        .then(response => {
+            return response.text().then(message => {
+                return { status: response.status, message: message };
+            });
+        })
+        .then(data => {
+            if (data.status >= 200 && data.status < 300) { // HTTP 2xx (sucesso)
+                alert("✅ " + data.message);
+            } else {
+                alert("❌ Erro: " + data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Erro ao salvar:", error);
+            alert("❌ Erro ao salvar documentos. Verifique o console.");
+        });
+    }
+
+    function abrirModal() {
+        $('#modal-responsavel').modal('show');
+    }
+
+
+
+
+</script>

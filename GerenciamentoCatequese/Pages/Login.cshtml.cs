@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace GerenciamentoCatequese.Pages
 {
@@ -13,10 +14,12 @@ namespace GerenciamentoCatequese.Pages
     {
         private readonly IUsuarioService _usuarioService;
         private readonly ILogger<LoginModel> _logger;
-        public LoginModel(IUsuarioService usuarioService, ILogger<LoginModel> logger)
+        private readonly INotyfService _notificacao;
+        public LoginModel(IUsuarioService usuarioService, ILogger<LoginModel> logger, INotyfService notificacao)
         {
             _usuarioService = usuarioService;
             this._logger = logger;
+            _notificacao = notificacao;
         }
 
         public void OnGet()
@@ -30,12 +33,14 @@ namespace GerenciamentoCatequese.Pages
                 var retorno = await _usuarioService.LoginUsuario(NomeLogin, Senha);
                 if (retorno is null)
                 {
-                    
+                    _notificacao.Error("Credenciais inválidas");
                     return Page();
                 }
+
                 var iniciais = RetornaIniciais(retorno.NomeUsuario!);
 
                 await CriarSessao(NomeLogin, retorno.NomeUsuario!,iniciais, false);
+                _notificacao.Success("Login realizado com sucesso");
                 return RedirectToPage("/Index");
             }
             catch (Exception ex)
