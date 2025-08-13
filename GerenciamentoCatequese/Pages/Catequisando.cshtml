@@ -9,8 +9,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste</title>
-
+    <title>Catequese</title>
+    
+    <script src="~/js/carregamunicipiobatismo.js"></script>
+    <script src="~/js/carregamunicipioeucaristia.js"></script>
+    <script src="~/js/carregamunicipionascimento.js"></script>
+    <script src="~/js/carregarresponsavel.js"></script>
+    <script src="~/js/carregardadospagamento.js"></script>
+    <script src="~/js/adicionarresponsavel.js"></script>
+    <script src="~/js/salvardocumentos.js?v=5454"></script>
+    <script src="~/js/LimparFormularioResponsavel.js"> </script>
+    <script src="~/js/startprocess.js?v=5454"></script>
 </head>
 
 
@@ -24,12 +33,14 @@
             <li class="step-item active">Dados Pessoais</li>
             <li class="step-item">Responsáveis</li>
             <li class="step-item">Documentação</li>
+            <li class="step-item">Observações Gerais</li>
         </ul>
     </div>
 
     <div id="DadosPessoais" class="mt-4">
         <div class=" card card-md container-narrow py-2 px-2">
             <form id="SalvarDadosPessoais" method="post" asp-page-handler="SalvarDadosPessoais">
+                <input type="hidden" id="IdCatequisandoEditar" asp-for="@Model.IdCatequisandoEditar" />
                 <div class="card-body" style="width:auto; height:auto">
 
                     <div>
@@ -110,7 +121,7 @@
                         <div class="col">
                             <div class="mb-3">
                                 <div class="form-label">Município</div>
-                                <select asp-for="@Model._catequisando.MunicipioNaturalidade" id="municipioNascimento" class="form-select">
+                                <select asp-for="@Model._catequisando.MunicipioNaturalidade" id="municipioNascimento" class="form-select" data-selecionado="@Model._catequisando.MunicipioNaturalidade">
                                     <option value="">Selecione um município</option>
                                 </select>
                             </div>
@@ -180,7 +191,10 @@
                         <div class="col" style="max-inline-size: 25%">
                             <div class="mb-3">
                                 <div class="form-label">Município</div>
-                                <select asp-for="@Model._catequisando.MunicipioBatismo" disabled id="municipioBatismo" class="form-select">
+                                <select asp-for="@Model._catequisando.MunicipioBatismo"
+                                        disabled id="municipioBatismo"
+                                        class="form-select"
+                                        data-selecionado="@Model._catequisando.MunicipioBatismo">
                                     <option value="">Selecione um município</option>
                                 </select>
                             </div>
@@ -258,7 +272,7 @@
                         <div class="col" style="max-inline-size: 25%">
                             <div class="mb-3">
                                 <div class="form-label">Município</div>
-                                <select asp-for="@Model._catequisando.MunicipioEucaristia" disabled id="municipioEucaristia" class="form-select">
+                                <select asp-for="@Model._catequisando.MunicipioEucaristia" disabled id="municipioEucaristia" class="form-select" data-selecionado="@Model._catequisando.MunicipioEucaristia">
                                     <option value="">Selecione um município</option>
                                 </select>
                             </div>
@@ -338,7 +352,7 @@
                         <div class="col-md-2">
                             <div class="mb-3">
                                 <label for="uf" class="form-label">UF</label>
-                                <input asp-for="@Model._catequisando.UFEndereco" type="text" id="uf" class="form-control" placeholder="UF" readonly>
+                                <input asp-for="@Model._catequisando.UFEndereco" type="text" id="uf" class="form-control" placeholder="UF">
                             </div>
                         </div>
 
@@ -346,7 +360,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="logradouro" class="form-label">Logradouro</label>
-                                <input asp-for="@Model._catequisando.LogradouroEndereco" type="text" id="logradouro" class="form-control" placeholder="Logradouro" readonly>
+                                <input asp-for="@Model._catequisando.LogradouroEndereco" type="text" id="logradouro" class="form-control" placeholder="Logradouro">
                             </div>
                         </div>
 
@@ -356,7 +370,7 @@
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="bairro" class="form-label">Bairro</label>
-                                <input asp-for="@Model._catequisando.BairroEndereco" type="text" id="bairro" class="form-control" placeholder="Bairro" readonly>
+                                <input asp-for="@Model._catequisando.BairroEndereco" type="text" id="bairro" class="form-control" placeholder="Bairro">
                             </div>
                         </div>
 
@@ -364,7 +378,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label for="cidade" class="form-label">Cidade</label>
-                                <input asp-for="@Model._catequisando.CidadeEndereco" type="text" id="cidade" class="form-control" placeholder="Cidade" readonly>
+                                <input asp-for="@Model._catequisando.CidadeEndereco" type="text" id="cidade" class="form-control" placeholder="Cidade">
                             </div>
                         </div>
 
@@ -406,7 +420,7 @@
                 <div class="card-body" style="width:auto; height:auto">
                     <div class="mb-3 div-itens" style="display: flex; justify-content: center; align-items: center; position: relative; padding-right: 80px;">
                         <h3 style="margin: 0;">Dados dos responsáveis</h3>
-                        <button type="button" class="btn btn-6 btn-primary active w-20 btn-custom" onclick="abrirModal()"
+                        <button type="button" class="btn btn-6 btn-primary active w-20 btn-custom" onclick="LimparFormularioResponsavel();abrirModal()"
                                 style="position: absolute; right: 0;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-square-rounded-plus">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -424,15 +438,50 @@
                             <thead>
                                 <tr>
                                     <th>Nome</th>
-                                    <th>Turma</th>
-                                    <th>Documento(s) Faltante(s)</th>
+                                    <th>Parentesco</th>
+                                    <th>Telefone</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="nome">Não há ítens cadastrados</td>
-                                </tr>
+                                @if(Model.IdCatequisandoEditar == 0)
+                                {
+                                    <tr>
+                                        <td class="nome">Não há ítens cadastrados</td>
+                                    </tr>
+
+                                }else
+                                {
+                                    @foreach (var item in Model._responsaveisCatequisando)
+                                    {
+                                        <tr data-id="@item.IdResponsavelCatequisando">
+                                            <td class="nome">@item.NomeResponsavel</td>
+                                            <td class="text-secondary">@item.DescricaoParentesco</td>
+                                            <td class="text-secondary">@item.TelefoneCelular</td>
+                                            <td>
+                                                <div class="btn-list flex-nowrap">
+                                                    <div class="dropdown">
+                                                        <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
+                                                            Ações
+                                                        </button>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item edit-link">Editar</a>
+                                                            <input type="hidden" value="@item.IdResponsavelCatequisando" class="id-documento" />
+                                                            <input type="hidden" value="@Model.IdCatequisandoEditar" id="IdCatequisandoEditar" />
+                                                            <a class="dropdown-item" href="#" >
+                                                                Finalizar
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                        </tr>
+                                        
+                                    }
+
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -442,13 +491,18 @@
 
                     <div class="mt-4" style="display: flex; justify-content: space-between; align-items: center;">
                         <button class="btn btn-primary btn-3" type="button" onclick="step('DadosResponsaveis', 'DadosPessoais', 0)">Voltar</button>
-                        <button class="btn btn-success btn-3" type="button" onclick="step('DadosResponsaveis', 'DadosPagamento', 2)">Prosseguir</button>
+                        <button class="btn btn-success btn-3" type="button"
+                                onclick="step('DadosResponsaveis', 'DadosPagamento', 2);
+                                 @((Model.IdCatequisandoEditar != 0) ? "carregarDadosPagamento(" + Model.IdCatequisandoEditar + ");" : "")">
+                            Prosseguir
+                        </button>
 
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
 
     <div id="DadosPagamento" class="mt-4" style="display:none">
         <div class="card card-md container-narrow py-2 px-2">
@@ -472,10 +526,34 @@
                         <div class="col">
                             <label class="form-label">Local do documento não entregue</label>
                             <select class="form-select documento-local" data-id="@item.IdTipoDocumento">
-                                <option disabled selected value="">Selecione uma opção</option>
+                                <option selected value="">Selecione uma opção</option>
                                 <option value="AC">AC</option>
-                                <option value="SP">SP</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
                                 <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
                             </select>
                         </div>
                     </div>
@@ -485,7 +563,7 @@
 
                 <form method="post" asp-page-handler="SalvarDocumentos">
                     <div class="row mt-3">
-                        <div class="col" style="max-inline-size: 20%">
+                        <div class="col" style="max-inline-size: 30%">
                             <div class="mb-3">
                                 <div class="form-label">Tipo de pagamento</div>
                                 <div>
@@ -496,6 +574,10 @@
                                     <label class="form-check form-check-inline">
                                         <input class="form-check-input" value="2" type="radio" name="radios-inline">
                                         <span class="form-check-label">Dinheiro</span>
+                                    </label>
+                                     <label class="form-check form-check-inline">
+                                        <input class="form-check-input" value="3" type="radio" name="radios-inline">
+                                        <span class="form-check-label">Não realizado</span>
                                     </label>
                                 </div>
                             </div>
@@ -518,175 +600,226 @@
                 </form>
 
                 <div class="mt-2" style="display: flex; justify-content: space-between; align-items: center;">
-                    <button class="btn btn-primary btn-3" type="button" onclick="retornar2()">Voltar</button>
-                    <button type="button" class="btn btn-success" onclick="salvarDocumentos()">Salvar</button>
+                    <button class="btn btn-primary btn-3" type="button" onclick="step('DadosPagamento', 'DadosResponsaveis', 0)">Voltar</button>
+                    <input type="hidden" id="IdCatequisandoDocumento" name="IdCatequisandoDocumento" />
+                    <button type="button" class="btn btn-success" onclick="salvarDocumentos()">Prosseguir</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <div id="ObservacoesGerais" class="mt-4" style="display:none">
+        <div class=" card card-md container-narrow py-2 px-2">
+            <form id="GravarObservacoesGerais" method="post" asp-page-handler="GravarObservacoesReponsaveis">
+                <div class="card-body" style="width:auto; height:auto">
+
+                    <div>
+                        <h3 style="text-align: center">Observações Gerais</h3>
+                        <h4 style="justify-self: center;">Coloque abaixo toda informação que considerar necessário</h4>
+                    </div>                    
+
+                        <!-- Complemento (editável) -->
+                        <div class="col">
+                        <div class="mb-3" style="justify-items: center;">                                
+                                <textarea style="width:800px" asp-for="@Model._ObservacoesGerais" class="form-control" id="ObservacoesGerais" rows="4" cols="50"></textarea>
+                            </div>
+                        </div>                 
+
+
+
+
+                    <div class="mt-2" style="display: flex; justify-content: space-between; align-items: center;">
+                        <input type="hidden" id="IdCatequisandoObservacao" asp-for="@Model.IdCatequisandoObservacao" />
+                        <button class="btn btn-primary btn-3" type="button" onclick="step('ObservacoesGerais', 'DadosPagamento', 0)">Voltar</button>
+                        <button class="btn btn-success btn-3" type="submit" >Salvar</button>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <div class="modal modal-blur fade" id="modal-responsavel" tabindex="-1" style="display: none; opacity:revert; z-index: 8001;" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div style="max-width:1000px" class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Novo cadastro</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="mt-1">
-                        <h3 style="text-align: center">Dados Pessoais</h3>
+        <form id="AdicionarResponsavel" method="post">
+            <div style="max-width:1000px" class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Novo cadastro</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col">
-                            <div class="mb-3">
-                                <div class="form-label">Nome completo</div>
-                                <input type="Text" required placeholder="Informe o nome completo do responsável" class="form-control">
+                    <div class="modal-body">
+                        <div class="mt-1">
+                            <h3 style="text-align: center">Dados Pessoais</h3>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <div class="form-label">Nome completo</div>
+                                    <input asp-for="@Model._responsavelCatequisando.NomeResponsavel" id="NomeResponsavel" type="Text" required placeholder="Informe o nome completo do responsável" class="form-control">
+                                </div>
                             </div>
+
+                            <div class="col">
+                                <div class="mb-3">
+                                    <div class="form-label">Parentesco</div>
+                                    <select asp-for="@Model._responsavelCatequisando.IdTipoParentesco" id="ParentescoResponsavel" class="form-select">
+                                        <option disabled selected value="">Selecione uma opção</option>
+                                        @foreach (var item in Model._tipoParentescos)
+                                        {
+                                            <option value="@item.IdTipoParentesco">@item.Descricao</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="mb-3">
+                                    <div class="form-label">Data de Nascimento</div>
+                                    <input asp-for="@Model._responsavelCatequisando.DataNascimentoResponsavel" id="DataNascimentoResponsavel" type="date" required class="form-control">
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div class="col">
-                            <div class="mb-3">
-                                <div class="form-label">Parentesco</div>
-                                <select id="ParentescoResponsavel" class="form-select">
-                                    <option disabled selected value="">Selecione uma opção</option>
-                                    @foreach (var item in Model._turmas)
-                                    {
-                                        <option value="@item.IdTurma">@item.DescricaoTurma</option>
-                                    }
-                                </select>
+                        <div class="row mt-3">
+                            <!-- Campo Batizado -->
+                            <div class="col md-4">
+                                <div class="mb-3">
+                                    <div class="form-label">Religião</div>
+                                    <input asp-for="@Model._responsavelCatequisando.Religiao" id="Religiao" type="Text" required placeholder="Informe a religião" class="form-control">
+                                </div>
                             </div>
+
+                            <div class="col md-4">
+                                <div class="mb-3">
+                                    <div class="form-label">Profissão</div>
+                                    <input asp-for="@Model._responsavelCatequisando.ProfissaoResponsavel" id="ProfissaoResponsavel" type="Text" required placeholder="Informe a profissão" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="mb-3">
+                                    <div class="form-label">Data do casamento</div>
+                                    <input asp-for="@Model._responsavelCatequisando.DataCasamento" id="DataCasamento" type="date" required class="form-control">
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div class="col">
-                            <div class="mb-3">
-                                <div class="form-label">Data de Nascimento</div>
-                                <input id="DataNascimento" type="date" required class="form-control">
-                            </div>
+                        <div class="mt-3">
+                            <h3 style="text-align: center">Sacramentos e pastorais</h3>
                         </div>
 
+                        <div class="row mt-3">
+                            <div class="col">
+                                <div class="mb-3">
+                                    <div class="form-label">Possui batismo?</div>
+                                    <label class="form-check form-switch form-switch-3 mt-3">
+                                        <input asp-for="@Model._responsavelCatequisando.Batismo" id="batizadoResponsavel" class="form-check-input" type="checkbox">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="mb-3">
+                                    <div class="form-label">Possui Eucaristia?</div>
+                                    <label class="form-check form-switch form-switch-3 mt-3">
+                                        <input asp-for="@Model._responsavelCatequisando.Eucaristia" id="eucatistiaResponsavel" class="form-check-input" type="checkbox">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="mb-3">
+                                    <div class="form-label">Possui Crisma?</div>
+                                    <label class="form-check form-switch form-switch-3 mt-3">
+                                        <input asp-for="@Model._responsavelCatequisando.Crisma" id="crismaResponsavel" class="form-check-input" type="checkbox">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="mb-3">
+                                    <div class="form-label">Possui Matrimônio?</div>
+                                    <label class="form-check form-switch form-switch-3 mt-3">
+                                        <input asp-for="@Model._responsavelCatequisando.Matrimonio" id="matrimonioResponsavel" class="form-check-input" type="checkbox">
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-3">
+
+                            <div class="col" style="max-inline-size: 15%">
+                                <div class="mb-3">
+                                    <div class="form-label">Dizimista?</div>
+                                    <label class="form-check form-switch form-switch-3 mt-3">
+                                        <input asp-for="@Model._responsavelCatequisando.Dizimista" id="CheckboxDizimistaResponsavel" class="form-check-input" type="checkbox">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Campo Pastoral -->
+                            <div class="col" style="max-inline-size: 20%">
+                                <div class="mb-3">
+                                    <div class="form-label">Participa de pastoral?</div>
+                                    <label class="form-check form-switch form-switch-3 mt-3">
+                                        <input asp-for="@Model._responsavelCatequisando.OutraPastoral" id="CheckboxPastoralResponsavel" class="form-check-input" type="checkbox" onchange="togglePastoralResponsavelFields()">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Descrição da pastoral -->
+                            <div class="col">
+                                <div class="mb-3">
+                                    <div class="form-label">Pastoral que atua</div>
+                                    <input asp-for="@Model._responsavelCatequisando.DescricaoOutraPastoral" id="DescricaoPastoralResponsavel" type="text" disabled class="form-control">
+                                </div>
+                            </div>
+
+                            <!-- Telefone celular do responsavel -->
+                            <div class="col">
+                                <div class="mb-3">
+                                    <div class="form-label">Telefone celular</div>
+                                    <input asp-for="@Model._responsavelCatequisando.TelefoneCelular" id="CelularResponsavel" type="text" required class="form-control">
+                                    
+                                    
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-
-                    <div class="row mt-3">
-                        <!-- Campo Batizado -->
-                        <div class="col md-4">
-                            <div class="mb-3">
-                                <div class="form-label">Religião</div>
-                                <input type="Text" required placeholder="Informe a religião" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="col md-4">
-                            <div class="mb-3">
-                                <div class="form-label">Profissão</div>
-                                <input type="Text" required placeholder="Informe a profissão" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="mb-3">
-                                <div class="form-label">Data do casamento</div>
-                                <input id="DataCasamento" type="date" required class="form-control">
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="mt-3">
-                        <h3 style="text-align: center">Sacramentos e pastorais</h3>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col">
-                            <div class="mb-3">
-                                <div class="form-label">Possui batismo?</div>
-                                <label class="form-check form-switch form-switch-3 mt-3">
-                                    <input id="batizadoResponsavel" class="form-check-input" type="checkbox">
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="mb-3">
-                                <div class="form-label">Possui Eucaristia?</div>
-                                <label class="form-check form-switch form-switch-3 mt-3">
-                                    <input id="eucatistiaResponsavel" class="form-check-input" type="checkbox">
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="mb-3">
-                                <div class="form-label">Possui Crisma?</div>
-                                <label class="form-check form-switch form-switch-3 mt-3">
-                                    <input id="crismaResponsavel" class="form-check-input" type="checkbox">
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="mb-3">
-                                <div class="form-label">Possui Matrimônio?</div>
-                                <label class="form-check form-switch form-switch-3 mt-3">
-                                    <input id="matrimonioResponsavel" class="form-check-input" type="checkbox">
-                                </label>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row mt-3">
-
-                        <div class="col" style="max-inline-size: 15%">
-                            <div class="mb-3">
-                                <div class="form-label">Dizimista?</div>
-                                <label class="form-check form-switch form-switch-3 mt-3">
-                                    <input id="CheckboxDizimistaResponsavel" class="form-check-input" type="checkbox">
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Campo Pastoral -->
-                        <div class="col" style="max-inline-size: 20%">
-                            <div class="mb-3">
-                                <div class="form-label">Participa de pastoral?</div>
-                                <label class="form-check form-switch form-switch-3 mt-3">
-                                    <input id="CheckboxPastoralResponsavel" class="form-check-input" type="checkbox" onchange="togglePastoralResponsavelFields()">
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Descrição da pastoral -->
-                        <div class="col">
-                            <div class="mb-3">
-                                <div class="form-label">Pastoral que atua</div>
-                                <input id="DescricaoPastoralResponsavel" type="text" disabled class="form-control">
-                            </div>
-                        </div>
-
-                        <!-- Telefone celular do responsavel -->
-                        <div class="col">
-                            <div class="mb-3">
-                                <div class="form-label">Telefone celular</div>
-                                <input id="CelularResponsavel" type="text" required class="form-control">
-                            </div>
-                        </div>
-
+                    <div class="modal-footer">
+                        <input asp-for="@Model._responsavelCatequisando.IdCatequisando" id="IdCatequisandoResponsavel" type="hidden">
+                        <input type="hidden" asp-for="@Model._responsavelCatequisando.IdResponsavelCatequisando" id="IdResponsavelCatequisando" />
+                        <a href="#" class="btn btn-primary link-secondary btn-3" data-bs-dismiss="modal"> Cancelar </a>
+                        <button type="button" onclick="AdicionarOuEditarResponsavel()" class="btn btn-success btn-5 ms-auto" data-bs-dismiss="modal">
+                            <!-- Download SVG icon from http://tabler.io/icons/icon/plus -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-2">
+                                <path d="M12 5l0 14"></path>
+                                <path d="M5 12l14 0"></path>
+                            </svg>
+                            Salvar
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-primary link-secondary btn-3" data-bs-dismiss="modal"> Cancel </a>
-                <a href="#" class="btn btn-success btn-5 ms-auto" data-bs-dismiss="modal">
-                    <!-- Download SVG icon from http://tabler.io/icons/icon/plus -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-2">
-                        <path d="M12 5l0 14"></path>
-                        <path d="M5 12l14 0"></path>
-                    </svg>
-                    Salvar
-                </a>
+        </form>
+    </div>
+
+    <div class="modal modal-blur fade" id="modal-small" tabindex="-1" style="display: none; opacity:revert; z-index: 8001;" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div style="width:150px" class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">                    
+                    <div><img src="https://netuse.inf.br/GRAVATA_PREV/portaltransparencia/imagens/Aguarde.gif" /></div>
+                </div>               
             </div>
         </div>
     </div>
+
+  
 </body>
 </html>
 
@@ -694,46 +827,8 @@
 
 
 
-        function startProcess() {
-            // Captura os dados do formulário
-            let formData = new FormData(document.getElementById('SalvarDadosPessoais'));
+           
 
-            // Converte o FormData para URL-encoded
-            const params = new URLSearchParams();
-            formData.forEach((value, key) => {
-                params.append(key, value);
-            });
-
-            // Criação da requisição XMLHttpRequest
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/Catequisando?handler=SalvarDadosPessoais', true);  // Ajuste a URL conforme necessário
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            // Obtém o token de verificação
-            var token = document.querySelector('input[name="__RequestVerificationToken"]').value;
-            xhr.setRequestHeader('RequestVerificationToken', token);
-
-            // Define a função de callback para quando o estado da requisição mudar
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        // Sucesso no processamento da resposta
-                        var data = JSON.parse(xhr.responseText);
-                        // Aqui você pode acessar os dados retornados se necessário
-                        alert("✅ " + data.message);  // Exemplo de mensagem de sucesso
-
-                        // Chama o método step para avançar no processo
-                        step('DadosPessoais', 'DadosResponsaveis', 1);  // Exemplo de como usar a função step
-                    } else {
-                        console.error('Erro:', xhr.statusText);
-                        alert("❌ Erro ao processar a requisição");
-                    }
-                }
-            };
-
-            // Envia os dados do formulário no formato URL-encoded
-            xhr.send(params.toString());
-        }
 
     document.addEventListener("DOMContentLoaded", function () {
         const inputResidencial = document.getElementById("ResidencialCatequisando");
@@ -980,76 +1075,33 @@
         steps[stepIndex].classList.add("active");
       }
     }
-
-
-    function salvarDocumentos() {
-        let documentos = [];
-
-        // Obtendo todos os checkboxes
-        document.querySelectorAll(".documento-checkbox").forEach(checkbox => {
-            let documentoId = checkbox.getAttribute("data-id");
-            let entregue = checkbox.checked;
-
-            // Captura o valor do select correspondente
-            let localDocumentoElement = document.querySelector(`.documento-local[data-id="${documentoId}"]`);
-            let localDocumento = localDocumentoElement ? localDocumentoElement.value : null;
-
-            // Adiciona ao array
-            documentos.push({
-                idTipoDocumento: parseInt(documentoId),
-                entregue: entregue,
-                localDocumento: localDocumento
-            });
-        });
-
-        // Captura os dados do pagamento
-        let IdTipoPagamento = document.querySelector('input[name="radios-inline"]:checked')?.value;
-        let NomeResponsavelPagamento = document.getElementById("ResponsavelPagamento")?.value;
-        let dataPagamento = document.getElementById("DataPagamento")?.value;
-
-        let dadosEnvio = {
-            Documentos: documentos,
-            Pagamento: {
-                IdTipoPagamento: IdTipoPagamento ? parseInt(IdTipoPagamento) : "",
-                NomeResponsavelPagamento: NomeResponsavelPagamento || "",
-                DataPagamento: dataPagamento ? dataPagamento : null
-            }
-        };
-
-        // Obtendo o token de verificação CSRF
-        let tokenElement = document.querySelector('input[name="__RequestVerificationToken"]');
-        let token = tokenElement ? tokenElement.value : "";
-
-        // Fazendo a requisição POST
-        fetch('/Catequisando?handler=SalvarDocumentos', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'RequestVerificationToken': token
-            },
-            body: JSON.stringify(dadosEnvio)
-        })
-        .then(response => {
-            return response.text().then(message => {
-                return { status: response.status, message: message };
-            });
-        })
-        .then(data => {
-            if (data.status >= 200 && data.status < 300) { // HTTP 2xx (sucesso)
-                alert("✅ " + data.message);
-            } else {
-                alert("❌ Erro: " + data.message);
-            }
-        })
-        .catch(error => {
-            console.error("Erro ao salvar:", error);
-            alert("❌ Erro ao salvar documentos. Verifique o console.");
-        });
-    }
+    
 
     function abrirModal() {
         $('#modal-responsavel').modal('show');
     }
+
+    
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".documento-checkbox").forEach(function (checkbox) {
+            checkbox.addEventListener("change", function () {
+                let idTipoDocumento = this.getAttribute("data-id");
+                let selectLocal = document.querySelector(`.documento-local[data-id='${idTipoDocumento}']`);
+
+                if (this.checked) {
+                    selectLocal.disabled = true;
+                    selectLocal.value = ""; // Opcional: limpa o valor do select ao desativá-lo
+                } else {
+                    selectLocal.disabled = false;
+                }
+            });
+        });
+    });
+
+
+    
+
 
 
 

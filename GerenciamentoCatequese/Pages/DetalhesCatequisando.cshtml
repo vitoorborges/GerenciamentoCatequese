@@ -1,0 +1,414 @@
+﻿@page
+@model GerenciamentoCatequese.Pages.DetalhesCatequisandoModel
+@{
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/datagrid.css" rel="stylesheet" />
+
+</head>
+
+
+<body>
+    <div class="mt-4">
+        <h1 style="text-align: center">Catequese PNSD 2025</h1>
+    </div>
+    <div class="mt-4">
+        <div class=" card card-md container-narrow py-2 px-2">
+            <div class="card">
+                <div class="datagrid-item">
+                    <div class="card-header">
+                        <button class="accordion-button" style="background-color:transparent" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-1-default" aria-expanded="true">
+                            <h3 class="card-title">Dados pessoais</h3>
+
+                        </button>
+                    </div>
+                </div>
+                <div id="collapse-1-default" class="accordion-collapse collapse show" data-bs-parent="#accordion-default" style="">
+                    <div class="accordion-body">
+                        <div class="card-body">
+                            <div class="datagrid">
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Nome Completo</div>
+                                    <div class="datagrid-content">@Model._catequisando.NomeCatequisando</div>
+                                </div>
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Turma</div>
+                                    <div class="datagrid-content">@Model._catequisando.DescricaoTurma</div>
+                                </div>                               
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Data de Nascimento</div>
+                                    <div class="datagrid-content">@Model._catequisando.DataNascimento?.ToString("dd/MM/yyyy")</div>
+                                </div>
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">UF de Nascimento</div>
+                                    <div class="datagrid-content">@Model._catequisando.UFNaturalidade</div>
+                                </div>
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Municipio de Nascimento</div>
+                                    <div class="datagrid-content">@Model._catequisando.MunicipioNaturalidade</div>
+                                </div>
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Possui batismo?</div>
+                                    @if (Model._catequisando.Batizado)
+                                    {
+                                        <div class="datagrid-content">
+                                            <!-- Download SVG icon from http://tabler.io/icons/icon/check -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon text-green icon-2">
+                                                <path d="M5 12l5 5l10 -10"></path>
+                                            </svg>
+                                            Sim
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="datagrid-content">
+                                            <!-- Download SVG icon from http://tabler.io/icons/icon/check -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon text-red icon-2">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M18 6l-12 12" />
+                                                <path d="M6 6l12 12" />
+                                            </svg>
+                                            Não
+                                        </div>
+                                    }
+
+                                </div>
+                                @if (Model._catequisando.Batizado)
+                                {
+                                    <div class="datagrid-item">
+                                        <div class="datagrid-title">Data do Batismo</div>
+                                        <div class="datagrid-content">@Model._catequisando.DataBatismo?.ToString("dd/MM/yyyy")</div>
+                                    </div>
+                                    <div class="datagrid-item">
+                                        <div class="datagrid-title">UF/Paróquia de Batismo</div>
+                                        <div class="datagrid-content">@Model._catequisando.UFBatismo / @Model._catequisando.ParoquiBatismo</div>
+                                    </div>
+                                }
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Possui Eucaristia?</div>
+                                    @if (Model._catequisando.Eucaristia)
+                                    {
+                                        <div class="datagrid-content">
+                                            <!-- Download SVG icon from http://tabler.io/icons/icon/check -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon text-green icon-2">
+                                                <path d="M5 12l5 5l10 -10"></path>
+                                            </svg>
+                                            Sim
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="datagrid-content">
+                                            <!-- Download SVG icon from http://tabler.io/icons/icon/check -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon text-red icon-2">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M18 6l-12 12" />
+                                                <path d="M6 6l12 12" />
+                                            </svg>
+                                            Não
+                                        </div>
+                                    }
+
+                                </div>
+                                @if (Model._catequisando.Eucaristia)
+                                {
+                                    <div class="datagrid-item">
+                                        <div class="datagrid-title">Data da Eucatistia</div>
+                                        <div class="datagrid-content">@Model._catequisando.DataEucaristia?.ToString("dd/MM/yyyy")</div>
+                                    </div>
+                                    <div class="datagrid-item">
+                                        <div class="datagrid-title">UF/Paroquia</div>
+                                        <div class="datagrid-content">@Model._catequisando.UFEucatistia / @Model._catequisando.ParoquiaEucaristia</div>
+                                    </div>
+
+                                }
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" card card-md container-narrow py-2 px-2">
+            <div class="card">
+                <div class="datagrid-item">
+                    <div class="card-header">
+                        <button class="accordion-button collapsed" style="background-color:transparent" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-2-default" aria-expanded="false">
+                            <h3 class="card-title">Endereço Residencial</h3>
+
+                        </button>
+                    </div>
+                </div>
+                <div id="collapse-2-default" class="accordion-collapse collapse" data-bs-parent="#accordion-default" style="">
+                    <div class="accordion-body">
+                        <div class="card-body">
+                            <div class="datagrid">
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">CEP</div>
+                                    @if (@Model._catequisando.CepEndereco != null)
+                                    {
+                                        <div class="datagrid-content">@Model._catequisando.CepEndereco</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="datagrid-content">Não informado</div>
+                                    }
+                                </div>
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">UF</div>
+                                    @if (@Model._catequisando.UFNaturalidade != null)
+                                    {
+                                        <div class="datagrid-content">@Model._catequisando.UFNaturalidade</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="datagrid-content">Não informado</div>
+                                    }
+                                </div>
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Logradouro</div>
+                                    @if (@Model._catequisando.LogradouroEndereco != null)
+                                    {
+                                        <div class="datagrid-content">@Model._catequisando.LogradouroEndereco</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="datagrid-content">Não informado</div>
+                                    }
+                                </div>
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Bairro</div>
+                                    @if (@Model._catequisando.BairroEndereco != null)
+                                    {
+                                        <div class="datagrid-content">@Model._catequisando.BairroEndereco</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="datagrid-content">Não informado</div>
+                                    }
+                                </div>
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Cidade</div>
+                                    @if (@Model._catequisando.CidadeEndereco != null)
+                                    {
+                                        <div class="datagrid-content">@Model._catequisando.CidadeEndereco</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="datagrid-content">Não informado</div>
+                                    }
+                                </div>
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Número</div>
+                                    @if (@Model._catequisando.NumeroEndereco != null)
+                                    {
+                                        <div class="datagrid-content">@Model._catequisando.NumeroEndereco</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="datagrid-content">Não informado</div>
+                                    }
+                                </div>
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Complemento</div>
+                                    @if (@Model._catequisando.ComplementoEndereco != null)
+                                    {
+                                        <div class="datagrid-content">@Model._catequisando.ComplementoEndereco</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="datagrid-content">Não informado</div>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" card card-md container-narrow py-2 px-2">
+            <div class="card">
+                <div class="datagrid-item">
+                    <div class="card-header">
+                        <button class="accordion-button collapsed" style="background-color:transparent" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-3-default" aria-expanded="false">
+                            <h3 class="card-title">Responsáveis</h3>
+
+                        </button>
+                    </div>
+                </div>
+                <div id="collapse-3-default" class="accordion-collapse collapse" data-bs-parent="#accordion-default" style="">
+                    <div class="accordion-body">
+                        <div class="card-body">
+                            <div class="card">
+                                <div class="table-responsive">
+                                    <table class="table table-vcenter card-table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Nome</th>
+                                                <th>Parentesco</th>
+                                                <th>Data de nascimento</th>
+                                                <th>Religião</th>
+                                                <th>Profissão</th>
+                                                <th>Telefone</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model._responsaveisCatequisando)
+                                            {
+                                                <tr>
+                                                    <td>@item.NomeResponsavel</td>
+                                                    <td class="text-secondary">@item.DescricaoParentesco</td>
+                                                    <td class="text-secondary">@item.DataNascimentoResponsavel</td>
+                                                    <td class="text-secondary">@item.Religiao</td>
+                                                    <td class="text-secondary">@item.ProfissaoResponsavel</td>
+                                                    <td class="text-secondary">@item.TelefoneCelular</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" card card-md container-narrow py-2 px-2">
+            <div class="card">
+                <div class="datagrid-item">
+                    <div class="card-header">
+                        <button class="accordion-button collapsed" style="background-color:transparent" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-4-default" aria-expanded="true">
+                            <h3 class="card-title">Documentação</h3>
+
+                        </button>
+                    </div>
+                </div>
+                <div id="collapse-4-default" class="accordion-collapse collapse" data-bs-parent="#accordion-default" style="">
+                    <div class="accordion-body">
+                        <div class="card-body">
+                            <div class="datagrid">
+                                @foreach (var item in Model._documentos)
+                                {
+                                    <div class="datagrid-item">
+                                        <div class="datagrid-title">Tipo de documento</div>
+                                        <div class="datagrid-content">@item.DescricaoTipoDocumento</div>
+                                    </div>
+                                    <div class="datagrid-item">
+                                        <div class="datagrid-title">Entregue</div>
+                                        @if (@item.Entregue)
+                                        {
+                                            <div class="datagrid-content">
+                                                <!-- Download SVG icon from http://tabler.io/icons/icon/check -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon text-green icon-2">
+                                                    <path d="M5 12l5 5l10 -10"></path>
+                                                </svg>
+                                                Sim
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="datagrid-content">
+                                                <!-- Download SVG icon from http://tabler.io/icons/icon/check -->
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon text-red icon-2">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M18 6l-12 12" />
+                                                    <path d="M6 6l12 12" />
+                                                </svg>
+                                                Não
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="datagrid-item">
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" card card-md container-narrow py-2 px-2">
+            <div class="card">
+                <div class="datagrid-item">
+                    <div class="card-header">
+                        <button class="accordion-button collapsed" style="background-color:transparent" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-5-default" aria-expanded="true">
+                            <h3 class="card-title">Pagamento</h3>
+
+                        </button>
+                    </div>
+                </div>
+                <div id="collapse-5-default" class="accordion-collapse collapse" data-bs-parent="#accordion-default" style="">
+                    <div class="accordion-body">
+                        <div class="card-body">
+                            <div class="datagrid">
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Tipo de pagamento</div>
+                                    <div class="datagrid-content">@Model._pagamentos.DescricaoTipoPagamento</div>
+                                </div>
+
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Responsável pelo pagamento</div>
+                                    <div class="datagrid-content">@Model._pagamentos.NomeResponsavelPagamento</div>
+                                </div>
+
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Data do pagamento</div>
+                                    <div class="datagrid-content">@Model._pagamentos.DataPagamento?.ToString("dd/MM/yyyy")</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" card card-md container-narrow py-2 px-2">
+            <div class="card">
+                <div class="datagrid-item">
+                    <div class="card-header">
+                        <button class="accordion-button collapsed" style="background-color:transparent" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-6-default" aria-expanded="true">
+                            <h3 class="card-title">Observações Gerais</h3>
+
+                        </button>
+                    </div>
+                </div>
+                <div id="collapse-6-default" class="accordion-collapse collapse" data-bs-parent="#accordion-default" style="">
+                    <div class="accordion-body">
+                        <div class="card-body">
+                            <div class="datagrid">
+                                <div class="datagrid-item">
+                                    <div class="datagrid-title">Observações:</div>
+                                    @if (@Model._ObservacoesGerais != null)
+                                    {
+                                        <div class="datagrid-content">@Model._ObservacoesGerais</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="datagrid-content">Não há observações</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+</html>

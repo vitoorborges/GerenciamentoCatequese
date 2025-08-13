@@ -39,7 +39,7 @@ namespace GerenciamentoCatequese.Pages
 
                 var iniciais = RetornaIniciais(retorno.NomeUsuario!);
 
-                await CriarSessao(NomeLogin, retorno.NomeUsuario!,iniciais, false);
+                await CriarSessao(NomeLogin, retorno.NomeUsuario!,iniciais, false, retorno.IdPerfil, retorno.IdTurma);
                 _notificacao.Success("Login realizado com sucesso");
                 return RedirectToPage("/Index");
             }
@@ -51,13 +51,15 @@ namespace GerenciamentoCatequese.Pages
         }
 
 
-        public async Task CriarSessao(string NomeLogin, string NomeCandidato, string Iniciais,   bool PermanecerLogado)
+        public async Task CriarSessao(string NomeLogin, string NomeCandidato, string Iniciais, bool PermanecerLogado, int IdPerfil, int IdTurma)
         {
             var claims = new List<Claim>
             {
                 new Claim("NomeLogin", NomeLogin),
                 new Claim("Iniciais", Iniciais),
                 new Claim(ClaimTypes.Name, NomeCandidato),
+                new Claim("IdPerfil", IdPerfil.ToString()),
+                new Claim("IdTurma", IdTurma.ToString()),
             };
 
             var claimsIdentity = new ClaimsIdentity(

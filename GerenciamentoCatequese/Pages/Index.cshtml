@@ -10,7 +10,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste</title>
+    <title>Gerenciamento</title>
+    <script src="~/js/paginacao.js?v=6565"></script>
+    <script src="~/js/exclusao.js"></script>
+
 </head>
 
 
@@ -24,7 +27,7 @@
 
                 <div class="container-xl mb-4">
                     <div class="mb-3 div-itens" style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3 class="titulo-card">Relação de catequizandos com documentos faltantes</h3>
+                        <h3 class="titulo-card">Relação de catequisandos</h3>
                         <div style="display:flex">
 
                             <form method="get" asp-page="Catequisando">
@@ -38,7 +41,7 @@
                                     Adicionar
                                 </button>
                             </form>
-                            <a asp-page-handler="GerarArquivo" class="btn btn-6 btn-primary active w-20 btn-custom" style="margin-left:10px">
+                            <a onclick="abrirModal();" class="btn btn-6 btn-primary active w-20 btn-custom" style="margin-left:10px">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
@@ -52,144 +55,174 @@
 
 
                     <div class="col-12">
-                        <div class="card">                           
-                                <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <input type="text" id="searchNome" class="form-control" placeholder="Filtrar por Nome">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <select id="filterTurma" class="form-control">
-                                                <option value="">Todas as Turmas</option>
-                                            </select>
-                                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="text" id="searchNome" class="form-control" placeholder="Filtrar por Nome">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select id="filterTurma" class="form-control">
+                                            <option value="">Todas as Turmas</option>
+                                        </select>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="table-responsive">
-                                    <table class="table table-vcenter card-table table-striped" id="tableData">
-                                        <thead>
+                            <div class="table-responsive">
+                                <table class="table table-vcenter card-table table-striped" id="tableData">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Turma</th>
+                                            <th>Idade</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela-body">
+                                        @foreach (var item in Model._catquisando)
+                                        {
                                             <tr>
-                                                <th>Nome</th>
-                                                <th>Turma</th>
-                                                <th>Documento(s) Faltante(s)</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var item in Model._catquisando)
-                                            {
-                                                <tr>
-                                                    <td class="nome">@item.NomeCatequisando</td>
-                                                    <td class="turma text-secondary">@item.IdTurma</td>
-                                                    <td class="text-secondary">@item.NomeCatequisando</td>
-                                                    <td>
-                                                        <div class="btn-list flex-nowrap">
-                                                            <div class="dropdown">
-                                                                <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
-                                                                    Ações
-                                                                </button>
-                                                                <div class="dropdown-menu dropdown-menu-end">
-                                                                    <a class="dropdown-item edit-link" >Editar</a>
-                                                                <input type="hidden" value="@item.NomeCatequisando" class="id-documento" />
-                                                                <a class="dropdown-item" href="#" onclick="abrirModal(@item.IdCatequisando)">
-                                                                    Finalizar
+                                                <td class="nome">@item.NomeCatequisando</td>
+                                                <td class="turma text-secondary">@item.DescricaoTurma</td>
+                                                <td class="text-secondary">@item.Idade</td>
+                                                <td>
+                                                    <div class="btn-list flex-nowrap">
+                                                        <div class="dropdown">
+                                                            <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
+                                                                Ações
+                                                            </button>
+                                                            <div class="dropdown-menu dropdown-menu-end">
+                                                                <a style="cursor: pointer;" class="dropdown-item edit-link">Editar</a>
+                                                                <a style="cursor: pointer;" class="dropdown-item detalhes-link">Detalhes</a>
+                                                                <a style="cursor: pointer;" class="dropdown-item pagamento-link">
+                                                                    Pagamento da taxa
+                                                                </a>
+                                                                <input type="hidden" value="@item.IdCatequisando" id="IdCatequisandoEcluir" name="IdCatequisandoEcluir" class="id-documento" />
+                                                                <a style="cursor: pointer;" class="dropdown-item" onclick="abrirModalExclusao(this);">
+                                                                    Excluir
                                                                 </a>
 
-                                                                </div>
                                                             </div>
                                                         </div>
+                                                    </div>
 
-                                                    </td>
-                                                </tr>
-                                            }
-                                        </tbody>
-                                    </table>
-                                </div>
-                          
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+                                <button id="btnPrev" style="margin-left:10px" class="btn btn-primary">
+                                    <svg style="margin-left:0px; margin-right:5px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M15 6l-6 6l6 6" />
+                                    </svg> 
+                                    Anterior
+                                </button>
+                                <span id="page-info" class="fw-bold"></span>
+                                <button id="btnNext" style="margin-right:10px" class="btn btn-primary">Próximo 
+                                    <svg style="margin-left:5px; margin-right:0px" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M9 6l6 6l-6 6" />
+                                    </svg>
+                                </button>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-   
 
-    
 
-    <div class="modal modal-blur fade" id="modalFinalizar" tabindex="-1" style="display: none; opacity:revert; z-index: 8001;" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal modal-blur fade" id="modal-report" tabindex="-1" style="display: none; opacity:revert; z-index: 8001;" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Relatorio de frequência</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post" asp-page-handler="GerarRelatorio">
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <div class="form-label">Tipo de Relatório</div>
+                            <select id="TipoRelatorio" asp-for="@Model._TipoRelatorio" class="form-select">
+                                <option disabled selected value="">Selecione uma opção</option>
+                                <option value="1">Completo</option>
+                                <option value="2">Frequência</option>
+                                <option value="3">Responsáveis</option>
+
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-label">Turma</div>
+                            <select asp-for="@Model._turmaRelatorio" id="TurmaRelatorio" class="form-select">
+                                <option disabled selected value="">Selecione uma opção</option>
+                                @foreach (var item in Model._turmas)
+                                {
+                                    <option value="@item.IdTurma">@item.DescricaoTurma</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-link link-secondary btn-3" data-bs-dismiss="modal"> Cancelar </a>
+                            <button type="submit" class="btn btn-primary btn-5 ms-auto" data-bs-dismiss="modal">
+                                <!-- Download SVG icon from http://tabler.io/icons/icon/plus -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-type-xls"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4" /><path d="M4 15l4 6" /><path d="M4 21l4 -6" /><path d="M17 20.25c0 .414 .336 .75 .75 .75h1.25a1 1 0 0 0 1 -1v-1a1 1 0 0 0 -1 -1h-1a1 1 0 0 1 -1 -1v-1a1 1 0 0 1 1 -1h1.25a.75 .75 0 0 1 .75 .75" /><path d="M11 15v6h3" /></svg>
+                                Gerar relatório
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal modal-blur fade" id="modalExcluir" tabindex="-1" style="display: none; opacity:revert; z-index: 8001;" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
             <div class="modal-content">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                <div class="modal-status bg-danger"></div>
-                <div class="modal-body text-center py-4">
-                    <!-- Download SVG icon from http://tabler.io/icons/icon/alert-triangle -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mb-2 text-danger icon-lg"><path d="M12 9v4"></path><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z"></path><path d="M12 16h.01"></path></svg>
-                    <h3>Atenção</h3>
-                    <div class="text-secondary">Tem certeza que o catequisando enviou toda documentação?</div>
-                </div>
-                <div class="modal-footer">
-                    <div class="w-100">
-                        <div class="row">
-                            <div class="col">
-                                <a href="#" class="btn btn-3 w-100" data-bs-dismiss="modal">
-                                    Cancelar
-                                </a>
-                            </div>
-                            <div class="col">
-                                <button type="button"  id="confirmarFinalizar" class="btn btn-warning btn-4 w-100" data-bs-dismiss="modal">
-                                    Confirmar
-                                </button>
+                <form method="post" asp-page-handler="ExcluirCadastro">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="modal-status bg-danger"></div>
+                    <div class="modal-body text-center py-4">
+                        <!-- Download SVG icon from http://tabler.io/icons/icon/alert-triangle -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mb-2 text-danger icon-lg"><path d="M12 9v4"></path><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z"></path><path d="M12 16h.01"></path></svg>
+                        <h3>Atenção</h3>
+                        <div class="text-secondary">Tem certeza que deja excluir o cadastro?</div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="w-100">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#" class="btn btn-3 w-100" data-bs-dismiss="modal">
+                                        Cancelar
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <input type="hidden" name="IdCatequisandoParaExcluir" id="idParaExcluir" />
+                                    <button type="submit" id="confirmarFinalizar"  class="btn btn-warning btn-4 w-100" data-bs-dismiss="modal">
+                                        Confirmar
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
 </body>
 </html>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const searchNome = document.getElementById("searchNome");
-        const filterTurma = document.getElementById("filterTurma");
-        const tableRows = document.querySelectorAll("#tableData tbody tr");
-
-        // Criar lista única de turmas
-        const turmas = new Set();
-        tableRows.forEach(row => {
-            turmas.add(row.querySelector(".turma").textContent.trim());
-        });
-
-        // Adicionar turmas ao select
-        turmas.forEach(turma => {
-            const option = document.createElement("option");
-            option.value = turma;
-            option.textContent = turma;
-            filterTurma.appendChild(option);
-        });
-
-        // Função para filtrar
-        function filtrarTabela() {
-            const nomeFiltro = searchNome.value.toLowerCase();
-            const turmaFiltro = filterTurma.value;
-
-            tableRows.forEach(row => {
-                const nome = row.querySelector(".nome").textContent.toLowerCase();
-                const turma = row.querySelector(".turma").textContent.trim();
-
-                const matchNome = nome.includes(nomeFiltro);
-                const matchTurma = turmaFiltro === "" || turma === turmaFiltro;
-
-                row.style.display = matchNome && matchTurma ? "" : "none";
-            });
-        }
-
-        // Eventos de input e mudança para acionar filtro
-        searchNome.addEventListener("input", filtrarTabela);
-        filterTurma.addEventListener("change", filtrarTabela);
-    });
+<script>    
 
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".edit-link").forEach(link => {
@@ -200,22 +233,45 @@
                 const idDocumento = this.closest("tr").querySelector(".id-documento").value;
 
                 // Redireciona para a página de gerenciamento passando o ID corretamente
-                window.location.href = "/DocumentosFaltantes?id=" + encodeURIComponent(idDocumento);
+                window.location.href = "/Catequisando?IdCatequisandoEditar=" + encodeURIComponent(idDocumento);
+            });
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".detalhes-link").forEach(link => {
+            link.addEventListener("click", function (event) {
+                event.preventDefault(); // Evita o comportamento padrão do link
+
+                // Obtém o ID do documento da linha correspondente
+                const idDocumento = this.closest("tr").querySelector(".id-documento").value;
+
+                // Redireciona para a página de gerenciamento passando o ID corretamente
+                window.location.href = "/DetalhesCatequisando?IdCatequisandoDetalhes=" + encodeURIComponent(idDocumento);
+            });
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".pagamento-link").forEach(link => {
+            link.addEventListener("click", function (event) {
+                event.preventDefault(); // Evita o comportamento padrão do link
+
+                // Obtém o ID do documento da linha correspondente
+                const idDocumento = this.closest("tr").querySelector(".id-documento").value;
+
+                // Redireciona para a página de gerenciamento passando o ID corretamente
+                window.location.href = "/PagamentoTaxa?IdCatequisando=" + encodeURIComponent(idDocumento);
             });
         });
     });
 
             let idParaFinalizar = null;
 
-    function abrirModal(id) {
-        idParaFinalizar = id; 
-        $('#modalFinalizar').modal('show');
+    function abrirModal() {
+        $('#modal-report').modal('show');
     }
 
-    document.getElementById('confirmarFinalizar').addEventListener('click', function() {
-        if (idParaFinalizar !== null) {
-            window.location.href = "/Index?handler=Finalizar&IdCatequizando=" + encodeURIComponent(idParaFinalizar);
-        }
-    });
+
 
 </script>

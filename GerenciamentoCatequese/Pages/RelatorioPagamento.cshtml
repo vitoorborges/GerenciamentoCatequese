@@ -1,0 +1,252 @@
+﻿@page
+@model GerenciamentoCatequese.Pages.RelatorioPagamentoModel
+@{
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento</title>
+
+</head>
+
+
+<body>
+    <div class="mt-4">
+        <h1 style="text-align: center">Catequese PNSD 2025</h1>
+    </div>
+    <div class="mt-4">
+        <div class=" card card-md container-narrow py-2 px-2">
+            <div class="card-body">
+
+                <div class="container-xl mb-4">
+                    <div class="mb-3 div-itens" style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 class="titulo-card">Relatório de pagamento das taxas</h3>
+                        <div style="display:flex">
+
+                            <form method="post" asp-page-handler="GerarRelatorioPagamentoTaxa">
+                                <button type="submit" class="btn btn-6 btn-primary active w-20 btn-custom">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                                        <path d="M7 11l5 5l5 -5" />
+                                        <path d="M12 4l0 12" />
+                                    </svg>
+                                    Gerar Relatorio
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row mb-3">
+                                    <div class="col-md-6 mb-2">
+                                        <input type="text" id="searchNome" class="form-control" placeholder="Filtrar por Nome">
+                                    </div>
+                                    <div class="col-md-6 mb-2">
+                                        <select id="filterTurma" class="form-control">
+                                            <option value="">Todas as Turmas</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-vcenter card-table table-striped" id="tableData">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome do catequisando</th>
+                                            <th>Turma</th>
+                                            <th>Parcela</th>
+                                            <th>Data do pagamento</th>
+                                            <th>Valor do pagamento</th>
+                                            <th>Responsavel</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela-body-Relatorio">
+                                        @foreach (var item in Model._pagamentos)
+                                        {
+                                            <tr>
+                                                <td class="nome">@item.NomeCatequisando</td>
+                                                <td class="turma text-secondary">@item.DescricaoTurma</td>
+                                                <td class="text-secondary">@item.Parcela</td>
+                                                <td class="text-secondary">@item.DataPagamento</td>
+                                                <td class="text-secondary">@item.ValorPagamento</td>
+                                                <td class="text-secondary">@item.NomeResponsavel</td>
+                                                <td>
+                                                    <div class="btn-list flex-nowrap">
+                                                        <div class="dropdown">
+                                                            <button class="btn dropdown-toggle align-text-top" data-bs-toggle="dropdown">
+                                                                Ações
+                                                            </button>
+                                                            <div class="exclusao dropdown-menu dropdown-menu-end">
+                                                                <input type="hidden" value="@item.IdPagamentoTaxa" class="id-documento" />
+                                                                <a style="cursor: pointer;" class="dropdown-item" onclick="abrirModalExclusao(this);">
+                                                                    Excluir
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+                                <button id="btnPrev" style="margin-left:10px" class="btn btn-primary">
+                                    <svg style="margin-left:0px; margin-right:5px" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M15 6l-6 6l6 6" />
+                                    </svg>
+                                    Anterior
+                                </button>
+                                <span id="page-info" class="fw-bold"></span>
+                                <button id="btnNext" style="margin-right:10px" class="btn btn-primary">
+                                    Próximo
+                                    <svg style="margin-left:5px; margin-right:0px" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M9 6l6 6l-6 6" />
+                                    </svg>
+                                </button>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal modal-blur fade" id="modalExcluirPagamento" tabindex="-1" style="display: none; opacity:revert; z-index: 8001;" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <form method="post" asp-page-handler="DeletarPagamentoTaxa">                    
+                    <div class="modal-status bg-danger"></div>
+                    <div class="modal-body text-center py-4">
+                        <!-- Download SVG icon from http://tabler.io/icons/icon/alert-triangle -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon mb-2 text-danger icon-lg"><path d="M12 9v4"></path><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z"></path><path d="M12 16h.01"></path></svg>
+                        <h3>Atenção</h3>
+                        <div class="text-secondary">Tem certeza que deja excluir o pagamento?</div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="w-100">
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#" class="btn btn-3 w-100" data-bs-dismiss="modal">
+                                        Cancelar
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <input type="hidden" name="IdPagamentoTaxaExclusao" id="idParaExcluir" />
+                                    <button type="submit" id="confirmarFinalizar" class="btn btn-warning btn-4 w-100" data-bs-dismiss="modal">
+                                        Confirmar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchNome = document.getElementById("searchNome");
+        const filterTurma = document.getElementById("filterTurma");
+        const table = document.getElementById("tabela-body-Relatorio");
+        const tableRows = Array.from(table.getElementsByTagName("tr"));
+
+        const pageSize = 5;
+        let currentPage = 1;
+        let filteredRows = [...tableRows];
+
+        // Criar lista única de turmas e preencher o select
+        const turmas = new Set();
+        tableRows.forEach(row => {
+            const turma = row.querySelector(".turma").textContent.trim();
+            if (turma) turmas.add(turma);
+        });
+        turmas.forEach(turma => {
+            const option = document.createElement("option");
+            option.value = turma;
+            option.textContent = turma;
+            filterTurma.appendChild(option);
+        });
+
+        function showPage(page) {
+            const totalPages = Math.ceil(filteredRows.length / pageSize);
+            currentPage = Math.min(Math.max(page, 1), totalPages || 1);
+
+            tableRows.forEach(row => row.style.display = "none");
+
+            filteredRows.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+                .forEach(row => row.style.display = "table-row");
+
+            document.getElementById("page-info").textContent = `Página ${currentPage} de ${totalPages || 1}`;
+        }
+
+        function filtrarTabela() {
+            const nomeFiltro = searchNome.value.toLowerCase();
+            const turmaFiltro = filterTurma.value;
+
+            filteredRows = tableRows.filter(row => {
+                const nome = row.querySelector(".nome").textContent.toLowerCase();
+                const turma = row.querySelector(".turma").textContent.trim();
+                return nome.includes(nomeFiltro) && (turmaFiltro === "" || turma === turmaFiltro);
+            });
+
+            currentPage = 1;
+            showPage(currentPage);
+        }
+
+        searchNome.addEventListener("input", filtrarTabela);
+        filterTurma.addEventListener("change", filtrarTabela);
+
+        document.getElementById("btnNext").addEventListener("click", () => {
+            if (currentPage < Math.ceil(filteredRows.length / pageSize)) {
+                showPage(currentPage + 1);
+            }
+        });
+        document.getElementById("btnPrev").addEventListener("click", () => {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        });
+
+        showPage(1); // Exibir primeira página ao carregar
+    });
+
+    // Função para abrir o modal e popular o campo hidden com o ID da linha clicada
+    function abrirModalExclusao(elemento) {
+        const dropdown = elemento.closest(".dropdown-menu");
+        const idPagamento = dropdown.querySelector(".id-documento").value;
+        document.getElementById("idParaExcluir").value = idPagamento;
+
+        const modal = new bootstrap.Modal(document.getElementById("modalExcluirPagamento"));
+        modal.show();
+    }
+</script>
+
+

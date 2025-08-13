@@ -1,0 +1,226 @@
+﻿@page
+@model GerenciamentoCatequese.Pages.CatequistaCadastroModel
+@{
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catequese</title>
+    <link href="~/css/datagrid.css" rel="stylesheet" />
+    <!-- Cropper CSS -->
+    <link href="https://unpkg.com/cropperjs@1.6.1/dist/cropper.min.css" rel="stylesheet" />
+    <!-- Cropper JS -->
+    <script src="https://unpkg.com/cropperjs@1.6.1/dist/cropper.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="mt-4">
+        <h1 style="text-align: center">Catequese PNSD</h1>
+    </div>
+
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="card">
+                <div class="row g-0">
+                    <form method="post" asp-page-handler="SalvarImagem">
+                        <div class="col-12 col-md-9 d-flex flex-column">
+                            <div class="card-body">
+                                <h2 class="mb-4">Cadastro do catequista</h2>
+                                <div class="d-flex flex-column align-items-center">
+                                    <img style="width:150px; height:150px" id="imagemFinal" class="avatar avatar-xl mb-2" />
+                                    <input type="file" id="inputFoto" class="form-control" style="max-width: 300px;" accept="image/*" />
+                                    <input type="hidden" asp-for="@Model.ImagemBase64" id="imagemRecortada" />
+                                </div>
+
+                                <h3 class="card-title mt-4">Dados pessoais</h3>
+                                <div class="row g-3">
+                                    <div class="col-md">
+                                        <div class="form-label">Nome completo</div>
+                                        <input type="text" asp-for="@Model.Catequista.Nome" class="form-control" placeholder="Informe o seu nome">
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-label">Data de nascimento</div>
+                                        <input id="dataNascimento" asp-for="@Model.Catequista.DataNascimento" type="date" class="form-control">
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-label">Turma</div>
+                                        <select asp-for="@Model.Catequista.IdTurma" id="TurmaCrismando" class="form-select">
+                                            <option disabled selected value="">Selecione uma opção</option>
+                                            @foreach (var item in Model._turmas)
+                                            {
+                                                <option value="@item.IdTurma">@item.DescricaoTurma</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <h3 class="card-title mt-4">Contato</h3>
+                                <div>
+                                    <div class="row g-3">
+                                        <div class="col-md">
+                                            <div class="form-label">E-mail</div>
+                                            <input id="Email" asp-for="@Model.Catequista.Email" type="text" required class="form-control">
+                                        </div>
+                                        <div class="col-md">
+                                            <div class="form-label">Telefone</div>
+                                            <input id="CelularCatequista" asp-for="@Model.Catequista.Telefone" type="text" required class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="card-title mt-4">Dados de acesso </h3>
+                                <div class="row g-3">
+                                    <div class="col-md">
+                                        <div class="form-label">Perfil</div>
+                                        <select id="TurmaCrismando" asp-for="@Model.Catequista.Perfil" class="form-select">
+                                            <option disabled selected value="">Selecione uma opção</option>
+                                            <option value="1"> Coordenador(a)</option>
+                                            <option value="2"> Líder</option>
+                                            <option value="3"> Catequista</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-label">Senha</div>
+                                        <input type="password" asp-for="@Model.Catequista.Senha" required class="form-control">
+                                    </div>
+                                    <div class="col-md">
+                                        <div class="form-label">Confirmação da senha</div>
+                                        <input type="password" required class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-transparent mt-auto">
+                                <div class="btn-list justify-content-end">
+                                    <a href="#" class="btn btn-1"> Cancelar </a>
+                                    <button type="submit" class="btn btn-primary btn-2"> Enviar </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para recorte -->
+    <div class="modal fade" id="cropModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Recorte sua foto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="imagemParaRecorte" style="max-width: 100%; max-height: 80vh; display: block; margin: auto;" />
+                </div>
+                <div class="modal-footer">
+                    <button id="confirmarCorte" class="btn btn-primary">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const inputCelular = document.getElementById("CelularCatequista");
+
+        inputCelular.addEventListener("input", function () {
+            let valor = inputCelular.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+            if (valor.length > 11) valor = valor.slice(0, 11); // Limita a 11 caracteres
+
+            // Aplica a máscara (99) 99999-9999
+            if (valor.length >= 11) {
+                valor = valor.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+            } else if (valor.length >= 7) {
+                valor = valor.replace(/^(\d{2})(\d{4})(\d{0,4})$/, "($1) $2-$3");
+            } else if (valor.length >= 3) {
+                valor = valor.replace(/^(\d{2})(\d{0,5})$/, "($1) $2");
+            } else if (valor.length >= 1) {
+                valor = valor.replace(/^(\d{0,2})$/, "($1");
+            }
+
+            inputCelular.value = valor;
+        });
+    });
+
+    let cropper;
+    const inputFoto = document.getElementById('inputFoto');
+    const imagemParaRecorte = document.getElementById('imagemParaRecorte');
+    const imagemFinal = document.getElementById('imagemFinal');
+
+    inputFoto.addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        imagemParaRecorte.src = event.target.result;
+
+        // Mostra o modal
+        const modal = new bootstrap.Modal(document.getElementById('cropModal'));
+        modal.show();
+
+        imagemParaRecorte.onload = function () {
+          // Se já existe um cropper anterior, destrói antes de criar outro
+          if (cropper) {
+            cropper.destroy();
+            cropper = null;
+          }
+
+          // Cria novo cropper
+          cropper = new Cropper(imagemParaRecorte, {
+            aspectRatio: 1,
+            viewMode: 1,
+            autoCropArea: 1,
+            movable: true,
+            zoomable: true,
+            cropBoxMovable: true,
+            cropBoxResizable: true,
+          });
+        };
+      };
+      reader.readAsDataURL(file);
+    });
+
+
+    const imagemRecortadaInput = document.getElementById('imagemRecortada');
+
+        document.getElementById('confirmarCorte').addEventListener('click', function () {
+      if (!cropper) return; // segurança
+
+      const canvas = cropper.getCroppedCanvas({
+        width: 150,
+        height: 150,
+      });
+
+      const base64Image = canvas.toDataURL('image/png');
+      imagemRecortadaInput.value = base64Image;
+      imagemFinal.src = base64Image;
+
+      cropper.destroy();
+      cropper = null;
+
+      bootstrap.Modal.getInstance(document.getElementById('cropModal')).hide();
+    });
+
+        document.getElementById('cropModal').addEventListener('hidden.bs.modal', function () {
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+      }
+    });
+
+
+
+</script>
+
+

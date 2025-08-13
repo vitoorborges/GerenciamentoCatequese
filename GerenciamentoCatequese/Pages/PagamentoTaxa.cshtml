@@ -1,0 +1,206 @@
+﻿@page
+@model GerenciamentoCatequese.Pages.PagamentoTaxaModel
+@{
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catequese</title>
+    <link href="~/css/datagrid.css" rel="stylesheet" />
+    <!-- Cropper CSS -->
+    <link href="https://unpkg.com/cropperjs@1.6.1/dist/cropper.min.css" rel="stylesheet" />
+    <!-- Cropper JS -->
+    <script src="https://unpkg.com/cropperjs@1.6.1/dist/cropper.min.js"></script>
+
+
+</head>
+
+<body>
+    <div class="mt-4">
+        <h1 style="text-align: center">Catequese PNSD</h1>
+    </div>
+
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="card">
+                <div class="row g-0">
+                    <form method="post" asp-page-handler="EnviarFormulario">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Registro de pagamento da taxa</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="space-y">
+
+                                        <div class="row row-cols-2 g-4">
+
+                                            <div>
+                                                <label class="form-label"> Catequisando </label>
+                                                <input type="text" asp-for="@Model._catequisando.NomeCatequisando" readonly class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label class="form-label">Responsável pelo pagamento</label>
+                                                <div>
+                                                    <select asp-for="@Model._pagamentoTaxa.NomeResponsavel" id="NomeResponsavel" class="form-select">
+                                                        <option disabled selected value="">Selecione uma opção</option>
+                                                        @foreach (var item in Model._responsaveis)
+                                                        {
+                                                            <option value="@item.NomeResponsavel">@item.NomeResponsavel</option>
+                                                        }
+                                                        <option value="Outro">Outro(a)</option>
+                                                    </select>
+                                                </div>
+
+                                                <div id="OutroResponsavelContainer" class="mt-2" style="display: none;">
+                                                    <input type="text" class="form-control" placeholder="Informe o nome do responsável" id="OutroResponsavel" />
+                                                </div>
+                                            </div>
+
+
+                                            <div>
+                                                <label class="form-label"> Parcela </label>
+                                                <div>
+                                                    <select asp-for="@Model._pagamentoTaxa.Parcela" class="form-select">
+                                                        <option value="" disabled selected>Selecione uma opção</option>
+                                                        <option value="1ª Parcela">1ª Parcela</option>
+                                                        <option value="2ª Parcela"> 2ª Parcela</option>
+                                                        <option value="3ª Parcela">3ª Parcela</option>
+                                                        <option value="4ª Parcela">4ª Parcela</option>
+                                                        <option value="Cota única">Cota única</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <label class="form-label"> Data do pagamento </label>
+                                                <div>
+                                                    <div class="input-icon">
+                                                        <input asp-for="@Model._pagamentoTaxa.DataPagamento" id="dataNascimento" type="date" required class="form-control">                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row row-cols-2 g-4">
+
+                                            <div>
+                                                <label class="form-label"> Valor do pagamento </label>
+                                                <input asp-for="@Model._pagamentoTaxa.ValorPagamento" id="ValorPagamento" type="text" placeholder="Informe o valor" class="form-control">
+                                            </div>
+
+                                            <div>
+                                                <label class="form-label"> Referência </label>
+                                                <div>
+                                                    <select asp-for="@Model._catequisando.IdTurma" id="TurmaCrismando" class="form-select">
+                                                        <option disabled selected value="">Selecione uma opção</option>
+                                                        @foreach (var item in Model._turmas)
+                                                        {
+                                                            <option value="@item.IdTurma">@item.DescricaoTurma</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="text-end">
+                                            <a href="#" class="btn btn-1"> Cancelar </a>
+                                            <input type="hidden" asp-for="@Model._pagamentoTaxa.IdTurma" value="@Model._catequisando.IdTurma" />
+                                            <input type="hidden" asp-for="@Model._pagamentoTaxa.IdCatequisando" value="@Model._catequisando.IdCatequisando" />
+                                            <button type="submit" class="btn btn-primary btn-2"> Registrar pagamento </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    </form>
+                </div>
+
+
+            </div>
+            <div class="col-12 mt-3">
+                <div class="card">
+
+                    <div class="card-header">
+                        <h3 class="card-title">Pagamentos realizados</h3>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-vcenter card-table table-striped" id="tableData">
+                            <thead>
+                                <tr>
+                                    <th>Responsável</th>
+                                    <th>Referência</th>
+                                    <th>Valor do pagamento</th>
+                                    <th>Parcela</th>
+                                    <th>Data do pagamento</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabela-body">
+                                @foreach (var item in Model._registroPagamentosTaxas)
+                                {
+                                    <tr>
+                                        <td class="text-secondary">@item.NomeResponsavelCompleto</td>
+                                        <td class="text-secondary">@item.DescricaoTurma</td>
+                                        <td class="text-secondary">@item.ValorPagamento</td>
+                                        <td class="text-secondary">@item.Parcela</td>
+                                        <td class="text-secondary">@item.DataPagamento?.ToString("dd/MM/yyyy")</td>
+                                    </tr>
+                                    
+                                }                               
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const select = document.getElementById("NomeResponsavel");
+        const outroInput = document.getElementById("OutroResponsavel");
+        const outroContainer = document.getElementById("OutroResponsavelContainer");
+
+        // Mostra ou esconde o campo de texto
+        select.addEventListener("change", function () {
+            if (this.value === "Outro") {
+                outroContainer.style.display = "block";
+            } else {
+                outroContainer.style.display = "none";
+            }
+        });
+
+        // Antes de enviar o formulário, troca o valor do select se for "Outro"
+        const form = select.closest("form");
+        form.addEventListener("submit", function (e) {
+            if (select.value === "Outro") {
+                const outroTexto = outroInput.value.trim();
+                if (outroTexto !== "") {
+                    // Cria uma opção temporária com o texto digitado
+                    const customOption = new Option(outroTexto, outroTexto, true, true);
+                    select.add(customOption);
+                } else {
+                    alert("Por favor, informe o nome do responsável.");
+                    e.preventDefault();
+                }
+            }
+        });
+    });
+</script>
+
