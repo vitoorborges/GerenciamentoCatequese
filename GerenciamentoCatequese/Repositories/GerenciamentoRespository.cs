@@ -17,7 +17,7 @@ namespace GerenciamentoCatequese.Repositories
             _logger = logger;
         }
 
-        public async Task<IEnumerable<Catequisando>> ListaCatequisandos(int IdPerfil, int IdTurma)
+        public async Task<IEnumerable<Catequisando>> ListaCatequisandos(int IdPerfil, int IdTurma, int AnoCatequese)
         {
             try
             {
@@ -28,6 +28,7 @@ namespace GerenciamentoCatequese.Repositories
                 var p = new DynamicParameters();
                 p.Add("IdPerfil", IdPerfil);
                 p.Add("Idturma", IdTurma);
+                p.Add("AnoCatequese", AnoCatequese);
 
                 var retorno = await connection.QueryAsync<Catequisando>(
                    "dbo.UspListaCatequisandos",
@@ -714,17 +715,53 @@ namespace GerenciamentoCatequese.Repositories
                 var conexao = _configuration.GetConnectionString("Default");
 
                 using var connection = new SqlConnection(conexao);
+                int batismo = 0;
+                int eucaristia = 0;
+                int crisma = 0;
+                int matrimonio = 0;
+
+                foreach (var item in catequista.Sacramentos)
+                {
+                    switch (item.IdSacramento)
+                    {
+                        case 1:
+                            batismo = 1;
+                            break;
+                        case 2:
+                            eucaristia = 1;
+                            break;
+                        case 3:
+                            crisma = 1;
+                            break;
+                        case 4:
+                            matrimonio = 1;
+                            break;
+                    }
+                }
 
                 var p = new DynamicParameters();
                 p.Add("@IdTurma", catequista.IdTurma);
-                p.Add("@NomeCatequista", catequista.Nome);
+                p.Add("@IdPerfil", catequista.IdPerfil);
+                p.Add("@NomeCatequista", catequista.NomeCatequista);
                 p.Add("@DataNascimento", catequista.DataNascimento);
                 p.Add("@Email", catequista.Email);
                 p.Add("@Telefone", catequista.Telefone);
-                p.Add("@IdPerfil", catequista.Perfil);
+                p.Add("@EnderecoCompleto", catequista.Endereco);
+                p.Add("@Trabalha", catequista.Trabalha);
+                p.Add("@Profissao", catequista.Profissao);
+                p.Add("@Disponibilidade", catequista.Disponibilidade);
+                p.Add("@TamanhoCamiseta", catequista.TamanhoCamiseta);
+                p.Add("@EstadoCivil", catequista.EstadoCivil);
+                p.Add("@Pastoral", catequista.Pastoral);
+                p.Add("@DescricaoPastoral", catequista.DescricaoPastoral);
+                p.Add("@Batismo", batismo);
+                p.Add("@Eucaristia", eucaristia);
+                p.Add("@Crisma", crisma);
+                p.Add("@Matrimonio", matrimonio);
+                p.Add("@Foto", catequista.Foto);
                 p.Add("@Senha", catequista.Senha);
 
-                // Executa a procedure e obtém o ID gerado
+               
                 var id = await connection.ExecuteScalarAsync<int>(
                     "dbo.UspCadastroCatequista",
                     p,
@@ -738,6 +775,73 @@ namespace GerenciamentoCatequese.Repositories
                 throw;
             }
         }
+
+        public async Task<int> AtualizarCatequista(Catequista catequista, int idCatequista)
+        {
+            try
+            {
+
+                int batismo = 0;
+                int eucaristia = 0;
+                int crisma = 0;
+                int matrimonio = 0;
+
+                foreach (var item in catequista.Sacramentos)
+                {
+                    switch (item.IdSacramento)
+                    {
+                        case 1:
+                            batismo = 1;
+                            break;
+                        case 2:
+                            eucaristia = 1;
+                            break;
+                        case 3:
+                            crisma = 1;
+                            break;
+                        case 4:
+                            matrimonio = 1;
+                            break;
+                    }
+                }
+
+                var conexao = _configuration.GetConnectionString("Default");
+                using var connection = new SqlConnection(conexao);
+                var p = new DynamicParameters();
+                p.Add("@IdCatequista", idCatequista);
+                p.Add("@IdTurma", catequista.IdTurma);
+                p.Add("@IdPerfil", catequista.IdPerfil);
+                p.Add("@NomeCatequista", catequista.NomeCatequista);
+                p.Add("@DataNascimento", catequista.DataNascimento);
+                p.Add("@Email", catequista.Email);
+                p.Add("@Telefone", catequista.Telefone);
+                p.Add("@EnderecoCompleto", catequista.Endereco);
+                p.Add("@Trabalha", catequista.Trabalha);
+                p.Add("@Profissao", catequista.Profissao);
+                p.Add("@Disponibilidade", catequista.Disponibilidade);
+                p.Add("@TamanhoCamiseta", catequista.TamanhoCamiseta);
+                p.Add("@EstadoCivil", catequista.EstadoCivil);
+                p.Add("@Pastoral", catequista.Pastoral);
+                p.Add("@DescricaoPastoral", catequista.DescricaoPastoral);
+                p.Add("@Batismo", batismo);
+                p.Add("@Eucaristia", eucaristia);
+                p.Add("@Crisma", crisma);
+                p.Add("@Matrimonio", matrimonio);
+                p.Add("@Foto", catequista.Foto);
+                p.Add("@Senha", catequista.Senha);
+                var id = await connection.ExecuteScalarAsync<int>(
+                    "dbo.UspAtualizaCatequista",
+                    p,
+                    commandType: CommandType.StoredProcedure);
+                return id;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao atualizar catequista: {ex.Message}");
+                throw;
+            }
+        }
+
 
         public async Task<IEnumerable<Catequista>> ListarCatequistas()
         {
@@ -786,6 +890,32 @@ namespace GerenciamentoCatequese.Repositories
                 _logger.LogError($"Erro ao buscar os dados {ex.Message}");
                 throw new Exception(ex.Message);
             }
+        }
+
+        public async Task<Catequista> PesquisaCatequista(int IdCatequista) 
+        {
+            try
+            {
+                var conexao = _configuration.GetConnectionString("Default");
+
+                using var connection = new SqlConnection(conexao);
+
+                var p = new DynamicParameters();
+                p.Add("@IdCatequista", IdCatequista);
+
+                var retorno = await connection.QueryFirstOrDefaultAsync<Catequista>(
+                    "dbo.UspPesquisaCatequista",
+                    p,
+                    commandType: CommandType.StoredProcedure);
+
+                return retorno;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao pesquisar um catequista {ex.Message}");
+                throw new Exception(ex.Message);
+            }
+            
         }
 
         public async Task DeletarPagamentoTaxa(int IdPagamentoTaxa)

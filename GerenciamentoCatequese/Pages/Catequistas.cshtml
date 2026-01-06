@@ -56,14 +56,14 @@
                             <div class="card">
                                 <div class="card-body p-4 text-center">
                                     <img class="avatar avatar-xl mb-3" src="@item.Foto" />
-                                    <h3 class="m-0 mb-1"><a href="#">@item.Nome</a></h3>
+                                    <h3 class="m-0 mb-1"><a href="#">@item.NomeCatequista</a></h3>
                                     <div class="text-secondary">@item.DescricaoTurma</div>
                                     <div class="mt-3">
-                                        @if(item.DescricaoPerfil == "Catequista")
+                                        @if (item.DescricaoPerfil == "Catequista")
                                         {
                                             <span class="badge bg-green-lt">@item.DescricaoPerfil</span>
                                         }
-                                        else if(item.DescricaoPerfil == "Líder")
+                                        else if (item.DescricaoPerfil == "Líder")
                                         {
                                             <span class="badge bg-purple-lt">@item.DescricaoPerfil</span>
                                         }
@@ -82,6 +82,16 @@
                                         </svg>
                                         Detalhes
                                     </a>
+                                    <input type="hidden" value="@item.idCatequista" class="id-Catequista" id="idCatequistaEditar" />
+                                    <a href="#" class="card-btn edit-catequista">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                            <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                            <path d="M16 5l3 3" />
+                                        </svg>
+                                        Editar
+                                    </a>
 
                                 </div>
                             </div>
@@ -89,9 +99,27 @@
                     }
 
 
-                </div>                
+                </div>
             </div>
-        </div>        
+        </div>
     </div>
 </body>
 </html>
+
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const editButtons = document.querySelectorAll('.edit-catequista');
+
+        editButtons.forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                const idCatequista = this.parentElement.querySelector('.id-Catequista').value;
+
+                window.location.href = `./CatequistaCadastro?IdCatequistaEditar=${idCatequista}`;
+            });
+        });
+    });
+
+</script>

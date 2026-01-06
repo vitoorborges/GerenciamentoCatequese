@@ -1,0 +1,124 @@
+﻿@page
+@model GerenciamentoCatequese.Pages.FaltasCatequisandoModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento</title>
+
+</head>
+
+<body>
+    <div class="mt-4">
+        <h1 style="text-align: center">Catequese PNSD 2025</h1>
+    </div>
+    <div class="mt-4">
+        <div class=" card card-md container-narrow py-2 px-2">
+            <div class="card-body">
+
+                <div class="container-xl mb-4">
+                    <div class="mb-3 div-itens" style="display: flex; justify-content: space-between; align-items: center;">
+                        <h3 class="titulo-card">Controle de frequência da turma: @Model._catquisando.FirstOrDefault().DescricaoTurma</h3>
+                    </div>
+
+
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row" style="width: -webkit-fill-available">
+                                    <div class="col-md-2 ">
+                                        <label class="form-label">Data da frequência: </label>
+                                        <input type="date" placeholder="dd/mm/aaaa" class="form-control mt-2" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-vcenter card-table table-striped" id="tableData">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Frequência</th>
+                                            <th>Justificativa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela-body">
+                                        @foreach (var item in Model._catquisando)
+                                        {
+                                            <tr>
+                                                <td class="nome">@item.NomeCatequisando</td>
+
+                                                <td>
+                                                    <label class="form-check form-check-inline">
+                                                        <input class="form-check-input frequencia-radio"
+                                                               type="radio"
+                                                               name="frequencia_@item.IdCatequisando"
+                                                               value="1">
+                                                        <span class="form-check-label">Presente</span>
+                                                    </label>
+
+                                                    <label class="form-check form-check-inline">
+                                                        <input class="form-check-input frequencia-radio"
+                                                               type="radio"
+                                                               name="frequencia_@item.IdCatequisando"
+                                                               value="2">
+                                                        <span class="form-check-label">Falta não justificada</span>
+                                                    </label>
+
+                                                    <label class="form-check form-check-inline">
+                                                        <input class="form-check-input frequencia-radio"
+                                                               type="radio"
+                                                               name="frequencia_@item.IdCatequisando"
+                                                               value="3">
+                                                        <span class="form-check-label">Falta justificada</span>
+                                                    </label>
+                                                </td>
+
+                                                <td>
+                                                    <input type="text"
+                                                           class="form-control justificativa"
+                                                           disabled>
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+        document.querySelectorAll(".frequencia-radio").forEach(radio => {
+            radio.addEventListener("change", function () {
+
+                const linha = this.closest("tr");
+                const inputJustificativa = linha.querySelector(".justificativa");
+
+                // Valor 2 = Falta justificada
+                if (this.value === "3") {
+                    inputJustificativa.disabled = false;
+                    inputJustificativa.focus();
+                } else {
+                    inputJustificativa.disabled = true;
+                    inputJustificativa.value = "";
+                }
+            });
+        });
+
+    });
+
+</script>

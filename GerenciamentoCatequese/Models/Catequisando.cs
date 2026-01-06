@@ -32,6 +32,7 @@
         public int IdTurma { get; set; }
         public int Idade { get; set; }
         public string? DescricaoTurma { get; set; }
+        public int AnoCatequese { get; set; }
     }
 
 

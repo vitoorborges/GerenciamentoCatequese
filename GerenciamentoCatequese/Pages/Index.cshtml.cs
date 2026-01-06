@@ -20,6 +20,9 @@ namespace GerenciamentoCatequese.Pages
         [BindProperty]
         public int _TipoRelatorio { get; set; } = 0;
 
+        [BindProperty(SupportsGet = true)]
+        public int AnoCatequese { get; set; } = 0;
+
         public IEnumerable<UsuarioModel> _usuarios = Enumerable.Empty<UsuarioModel>();
         public IEnumerable<Catequisando> _catquisando { get; set; } = Enumerable.Empty<Catequisando>();
         public IEnumerable<Turma> _turmas { get; set; } = Enumerable.Empty<Turma>();
@@ -56,8 +59,17 @@ namespace GerenciamentoCatequese.Pages
                 }
             }
 
-            _catquisando = await _gerenciamentoService.ListaCatequisandos(idPerfil, IdTurma);
-            _turmas = await _gerenciamentoService.ListarTurmas();
+            if(AnoCatequese == 0)
+            {
+                _catquisando = await _gerenciamentoService.ListaCatequisandos(idPerfil, IdTurma,2025);
+
+            }
+            else
+            {
+                _catquisando = await _gerenciamentoService.ListaCatequisandos(idPerfil, IdTurma, AnoCatequese);
+            }
+
+                _turmas = await _gerenciamentoService.ListarTurmas();
 
             return Page();
         }

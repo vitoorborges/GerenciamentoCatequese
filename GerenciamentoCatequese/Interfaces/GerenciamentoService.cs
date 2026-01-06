@@ -4,7 +4,7 @@ namespace GerenciamentoCatequese.Interfaces
 {
     public interface IGerenciamentoService
     {
-        Task<IEnumerable<Catequisando>> ListaCatequisandos(int IdPerfil, int IdTurma);
+        Task<IEnumerable<Catequisando>> ListaCatequisandos(int IdPerfil, int IdTurma, int AnoCatequese);
         Task<IEnumerable<Turma>> ListarTurmas();
         Task<IEnumerable<Documento>> ListarDocumentos();
         Task<int> GravarDadosPessoais(Catequisando catequisando);
@@ -31,6 +31,8 @@ namespace GerenciamentoCatequese.Interfaces
         Task<IEnumerable<RegistroPagamentosTaxa>> ListarRegistrosPagamentosTaxa(int IdCatequisando);
         Task<IEnumerable<RelatorioPagamentoTaxa>> GerarRelatorioPagamentoTaxa();
         Task DeletarPagamentoTaxa(int IdPagamentoTaxa);
+        Task<Catequista> PesquisaCatequista(int IdCatequista);
+        Task<int> AtualizarCatequista(Catequista catequista, int idCatequista);
 
     }
 }

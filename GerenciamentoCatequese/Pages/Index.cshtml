@@ -57,13 +57,19 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row" style="width: -webkit-fill-available">
+                                    <div class="col-md-5">
                                         <input type="text" id="searchNome" class="form-control" placeholder="Filtrar por Nome">
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <select id="filterTurma" class="form-control">
                                             <option value="">Todas as Turmas</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select id="AnoCatequse" asp-for="AnoCatequese" class="form-control">
+                                            <option selected value="2025">2025</option>
+                                            <option value="2026">2026</option>
                                         </select>
                                     </div>
                                 </div>
@@ -251,6 +257,19 @@
             });
         });
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectAno = document.getElementById("AnoCatequse");
+
+        selectAno.addEventListener("change", function () {
+            const anoSelecionado = this.value;
+
+            // Redireciona passando o ano como parâmetro
+            window.location.href = "/Index?AnoCatequese="
+                + encodeURIComponent(anoSelecionado);
+        });
+    });
+
 
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll(".pagamento-link").forEach(link => {

@@ -10,11 +10,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catequese</title>
-    <link href="~/css/datagrid.css" rel="stylesheet" />
-    <!-- Cropper CSS -->
-    <link href="https://unpkg.com/cropperjs@1.6.1/dist/cropper.min.css" rel="stylesheet" />
-    <!-- Cropper JS -->
-    <script src="https://unpkg.com/cropperjs@1.6.1/dist/cropper.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <link href="~/css/modalrecorte.css" rel="stylesheet" />
+    <script src="~/js/catequistacadastro.js"></script>
 
 
 </head>
@@ -24,202 +24,249 @@
         <h1 style="text-align: center">Catequese PNSD</h1>
     </div>
 
-    <div class="page-body">
-        <div class="container-xl">
-            <div class="card">
-                <div class="row g-0">
-                    <form method="post" asp-page-handler="SalvarImagem">
-                        <div class="col-12 col-md-9 d-flex flex-column">
-                            <div class="card-body">
-                                <h2 class="mb-4">Cadastro do catequista</h2>
-                                <div class="d-flex flex-column align-items-center">
-                                    <img style="width:150px; height:150px" id="imagemFinal" class="avatar avatar-xl mb-2" />
-                                    <input type="file" id="inputFoto" class="form-control" style="max-width: 300px;" accept="image/*" />
-                                    <input type="hidden" asp-for="@Model.ImagemBase64" id="imagemRecortada" />
-                                </div>
+    <div class="card-body">
+        <ul class="steps steps-green steps-counter my-4">
+            <li class="step-item active">Dados Pessoais</li>
+            <li class="step-item">Dados Adicionais</li>
+            <li class="step-item">Dados de acesso</li>
+        </ul>
+    </div>
 
-                                <h3 class="card-title mt-4">Dados pessoais</h3>
-                                <div class="row g-3">
-                                    <div class="col-md">
-                                        <div class="form-label">Nome completo</div>
-                                        <input type="text" asp-for="@Model.Catequista.Nome" class="form-control" placeholder="Informe o seu nome">
-                                    </div>
-                                    <div class="col-md">
-                                        <div class="form-label">Data de nascimento</div>
-                                        <input id="dataNascimento" asp-for="@Model.Catequista.DataNascimento" type="date" class="form-control">
-                                    </div>
-                                    <div class="col-md">
-                                        <div class="form-label">Turma</div>
-                                        <select asp-for="@Model.Catequista.IdTurma" id="TurmaCrismando" class="form-select">
-                                            <option disabled selected value="">Selecione uma opção</option>
-                                            @foreach (var item in Model._turmas)
-                                            {
-                                                <option value="@item.IdTurma">@item.DescricaoTurma</option>
-                                            }
-                                        </select>
-                                    </div>
-                                </div>
-                                <h3 class="card-title mt-4">Contato</h3>
-                                <div>
-                                    <div class="row g-3">
-                                        <div class="col-md">
-                                            <div class="form-label">E-mail</div>
-                                            <input id="Email" asp-for="@Model.Catequista.Email" type="text" required class="form-control">
-                                        </div>
-                                        <div class="col-md">
-                                            <div class="form-label">Telefone</div>
-                                            <input id="CelularCatequista" asp-for="@Model.Catequista.Telefone" type="text" required class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                                <h3 class="card-title mt-4">Dados de acesso </h3>
-                                <div class="row g-3">
-                                    <div class="col-md">
-                                        <div class="form-label">Perfil</div>
-                                        <select id="TurmaCrismando" asp-for="@Model.Catequista.Perfil" class="form-select">
-                                            <option disabled selected value="">Selecione uma opção</option>
-                                            <option value="1"> Coordenador(a)</option>
-                                            <option value="2"> Líder</option>
-                                            <option value="3"> Catequista</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md">
-                                        <div class="form-label">Senha</div>
-                                        <input type="password" asp-for="@Model.Catequista.Senha" required class="form-control">
-                                    </div>
-                                    <div class="col-md">
-                                        <div class="form-label">Confirmação da senha</div>
-                                        <input type="password" required class="form-control">
-                                    </div>
+
+    <div class=" card card-md container-narrow py-2 px-2">
+        <div class="row g-0">
+            <form method="post" asp-page-handler="SalvarImagem">
+                <div class="card-body" style="width:auto; height:auto">
+                    <div class="d-flex flex-column align-items-center mb-2">
+                        <img style="width:150px; height:150px"
+                             id="imagemFinal"
+                             class="avatar avatar-xl mb-2"
+                             data-foto="@((Model._catequista != null && !string.IsNullOrEmpty(Model._catequista.Foto))
+                                                 ? Url.Content("~/" + Model._catequista.Foto)
+                                                                              : Url.Content("~/assets/PerfilPadrao.png"))"
+                             alt="Foto do catequista" />
+
+                        <input type="file" id="inputFoto" class="form-control" style="max-width: 300px;" accept="image/*" />
+                        <input type="hidden" id="imagemRecortada" asp-for="ImagemBase64" />
+                    </div>
+
+                    <div id="DadosPessoais" class="mt-4">
+
+                        <h3 style="text-align: center" class="card-title mt-5">Dados pessoais</h3>
+                        <div class="row g-3">
+                            <div class="col-md">
+                                <div class="form-label">Nome completo</div>
+                                <input type="text" asp-for="@Model._catequista.NomeCatequista" class="form-control" placeholder="Informe o seu nome">
+                            </div>
+                            <div class="col-md">
+                                <div class="form-label">Data de nascimento</div>
+                                <input id="dataNascimento" asp-for="@Model._catequista.DataNascimento" type="date" class="form-control">
+                            </div>
+                            <div class="col-md">
+                                <div class="form-label">Turma</div>
+                                <select asp-for="@Model._catequista.IdTurma" id="TurmaCrismando" class="form-select">
+                                    <option disabled selected value="">Selecione uma opção</option>
+                                    @foreach (var item in Model._turmas)
+                                    {
+                                        <option value="@item.IdTurma">@item.DescricaoTurma</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <h3 style="text-align: center" class="card-title mt-4">Endereço e Contato</h3>
+                        <div>
+                            <div class="row mt-3">
+                                <div class="col-md">
+                                    <div class="form-label">Endereço</div>
+                                    <input id="Endereco_catequista" asp-for="@Model._catequista.Endereco" type="text" required class="form-control">
                                 </div>
                             </div>
-                            <div class="card-footer bg-transparent mt-auto">
-                                <div class="btn-list justify-content-end">
-                                    <a href="#" class="btn btn-1"> Cancelar </a>
-                                    <button type="submit" class="btn btn-primary btn-2"> Enviar </button>
+                            <div class="row mt-3">
+                                <div class="col-md">
+                                    <div class="form-label">Telefone</div>
+                                    <input id="CelularCatequista" asp-for="@Model._catequista.Telefone" type="text" required class="form-control">
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-label">E-mail</div>
+                                    <input id="Email" asp-for="@Model._catequista.Email" type="text" required class="form-control">
                                 </div>
                             </div>
                         </div>
-                    </form>
+
+                        <div class="card-footer bg-transparent mt-5">
+                            <div class="btn-list justify-content-end">
+                                <a href="#" class="btn btn-1"> Cancelar </a>
+                                <button type="button" class="btn btn-primary btn-2" onclick="step('DadosPessoais','DadosAdicionais',1)"> Prosseguir </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="DadosAdicionais" style="display:none" class="mt-4">
+
+                        <h3 style="text-align: center" class="card-title mt-4">Dados Adicionais</h3>
+                        <div>
+                            <div class="row mt-3">
+                                <div class="col-md">
+                                    <div class="form-label">Trabalha atualmente</div>
+                                    <select id="Trabalho" asp-for="@Model._catequista.Trabalha" class="form-select">
+                                        <option disabled selected value="">Selecione uma opção</option>
+                                        <option value="1"> Sim</option>
+                                        <option value="2"> Não</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md">
+                                    <div class="form-label">Profissão</div>
+                                    <input type="text" asp-for="@Model._catequista.Profissao" class="form-control" placeholder="Informe a sua profissão">
+                                </div>
+
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md">
+                                    <div class="form-label">Disponibilidade</div>
+                                    <select id="Trabalho" asp-for="@Model._catequista.Disponibilidade" class="form-select">
+                                        <option disabled selected value="">Selecione uma opção</option>
+                                        <option value="1"> Sábado</option>
+                                        <option value="2"> Durante a semana</option>
+                                        <option value="3"> Ambos os dias</option>
+                                    </select>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-label">Tamanho da camiseta</div>
+                                    <input type="text" asp-for="@Model._catequista.TamanhoCamiseta" class="form-control" placeholder="Informe o tamanho da sua camiseta">
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md">
+                                    <div class="form-label">Sacramentos que recebeu</div>
+                                    <div>
+                                        @foreach (var item in Model._sacramentos)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="SelectedSacramentos" id="sacramento_@item.IdSacramento" value="@item.IdSacramento" @(Model.SelectedSacramentos.Contains(item.IdSacramento) ? "checked" : "") />
+                                                <label class="form-check-label" for="sacramento_@item.IdSacramento">@item.DescricaoSacramento</label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-label">Estado Civil</div>
+                                    <select id="Trabalho" asp-for="@Model._catequista.EstadoCivil" class="form-select">
+                                        <option disabled selected value="">Selecione uma opção</option>
+                                        <option value="Solteiro"> Solteiro</option>
+                                        <option value="Casado no civil"> Casado no civil</option>
+                                        <option value="Casado no religioso"> Casado no religioso</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md">
+                                    <div class="form-label">Participa de outro grupo ou pastoral</div>
+                                    <select id="Trabalho" asp-for="@Model._catequista.Pastoral" class="form-select">
+                                        <option disabled selected value="">Selecione uma opção</option>
+                                        <option value="1"> Sim</option>
+                                        <option value="2"> Não</option>
+                                    </select>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-label">Grupo/pastoral</div>
+                                    <input type="text" asp-for="@Model._catequista.DescricaoPastoral" class="form-control" placeholder="Informe o nome do grupo ou pastoral">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer bg-transparent mt-5">
+                            <div class="btn-list justify-content-end">
+                                <button class="btn btn-1" type="button" onclick="step('DadosAdicionais', 'DadosPessoais', 0)">Voltar</button>
+                                <button type="button" class="btn btn-primary btn-2" onclick="step('DadosAdicionais','DadosAcesso',2)"> Prosseguir </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="DadosAcesso" style="display:none">
+
+                        <h3 style="text-align: center" class="card-title mt-4">Dados de acesso </h3>
+                        <div class="row g-3">
+                            <div class="col-md">
+                                <div class="form-label">Perfil</div>
+                                <select id="TurmaCrismando" asp-for="@Model._catequista!.IdPerfil" class="form-select">
+                                    <option disabled selected value="">Selecione uma opção</option>
+                                    <option value="1"> Coordenador(a)</option>
+                                    <option value="2"> Líder</option>
+                                    <option value="3"> Catequista</option>
+                                </select>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-label">Senha</div>
+                                <input type="password" asp-for="@Model._catequista!.Senha" required class="form-control">
+                            </div>
+                            <div class="col-md">
+                                <div class="form-label">Confirmação da senha</div>
+                                <input type="password" required class="form-control">
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent mt-5">
+                            <div class="btn-list justify-content-end">
+                                <button class="btn btn-1" type="button" onclick="step('DadosAcesso', 'DadosAdicionais', 1)">Voltar</button>
+                                <input type="hidden" value="@Model._catequista!.Foto" asp-for="@Model._catequista.Foto" id="Foto" />
+                                <input type="hidden" value="@Model.IdCatequistaEditar" asp-for="@Model.IdCatequistaEditar" />
+                                <button type="submit" class="btn btn-primary btn-2"> Enviar </button>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
+
+            </form>
         </div>
     </div>
 
     <!-- Modal para recorte -->
     <div class="modal fade" id="cropModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Recorte sua foto</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                <div class="modal-header bg-light">
+                    <h5 class="modal-title fw-bold">Ajustar foto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body text-center">
-                    <img id="imagemParaRecorte" style="max-width: 100%; max-height: 80vh; display: block; margin: auto;" />
+
+                <div class="modal-body">
+                    <div class="cropper-area">
+                        <img id="imagemParaRecorte" />
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button id="confirmarCorte" class="btn btn-primary">Confirmar</button>
+
+                <div class="modal-footer d-flex justify-content-between">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-primary" id="confirmarCorte">Confirmar</button>
                 </div>
             </div>
         </div>
     </div>
+
+
+
 
 </body>
 </html>
 
 <script>
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const inputCelular = document.getElementById("CelularCatequista");
-
-        inputCelular.addEventListener("input", function () {
-            let valor = inputCelular.value.replace(/\D/g, ""); // Remove caracteres não numéricos
-
-            if (valor.length > 11) valor = valor.slice(0, 11); // Limita a 11 caracteres
-
-            // Aplica a máscara (99) 99999-9999
-            if (valor.length >= 11) {
-                valor = valor.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
-            } else if (valor.length >= 7) {
-                valor = valor.replace(/^(\d{2})(\d{4})(\d{0,4})$/, "($1) $2-$3");
-            } else if (valor.length >= 3) {
-                valor = valor.replace(/^(\d{2})(\d{0,5})$/, "($1) $2");
-            } else if (valor.length >= 1) {
-                valor = valor.replace(/^(\d{0,2})$/, "($1");
-            }
-
-            inputCelular.value = valor;
-        });
-    });
-
-    let cropper;
-    const inputFoto = document.getElementById('inputFoto');
-    const imagemParaRecorte = document.getElementById('imagemParaRecorte');
-    const imagemFinal = document.getElementById('imagemFinal');
-
-    inputFoto.addEventListener('change', function (e) {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function (event) {
-        imagemParaRecorte.src = event.target.result;
-
-        // Mostra o modal
-        const modal = new bootstrap.Modal(document.getElementById('cropModal'));
-        modal.show();
-
-        imagemParaRecorte.onload = function () {
-          // Se já existe um cropper anterior, destrói antes de criar outro
-          if (cropper) {
-            cropper.destroy();
-            cropper = null;
-          }
-
-          // Cria novo cropper
-          cropper = new Cropper(imagemParaRecorte, {
-            aspectRatio: 1,
-            viewMode: 1,
-            autoCropArea: 1,
-            movable: true,
-            zoomable: true,
-            cropBoxMovable: true,
-            cropBoxResizable: true,
-          });
-        };
-      };
-      reader.readAsDataURL(file);
-    });
-
-
-    const imagemRecortadaInput = document.getElementById('imagemRecortada');
-
-        document.getElementById('confirmarCorte').addEventListener('click', function () {
-      if (!cropper) return; // segurança
-
-      const canvas = cropper.getCroppedCanvas({
-        width: 150,
-        height: 150,
-      });
-
-      const base64Image = canvas.toDataURL('image/png');
-      imagemRecortadaInput.value = base64Image;
-      imagemFinal.src = base64Image;
-
-      cropper.destroy();
-      cropper = null;
-
-      bootstrap.Modal.getInstance(document.getElementById('cropModal')).hide();
-    });
-
-        document.getElementById('cropModal').addEventListener('hidden.bs.modal', function () {
-      if (cropper) {
-        cropper.destroy();
-        cropper = null;
-      }
-    });
-
-
+        function step(esconderId, mostrarId, stepIndex) {
+        document.getElementById(esconderId).style.display = "none";
+        document.getElementById(mostrarId).style.display = "block";
+        document.querySelectorAll(".steps .step-item").forEach(item => item.classList.remove("active"));
+        let steps = document.querySelectorAll(".steps .step-item");
+        if (steps[stepIndex]) {
+            steps[stepIndex].classList.add("active");
+        }
+    }
 
 </script>
 
