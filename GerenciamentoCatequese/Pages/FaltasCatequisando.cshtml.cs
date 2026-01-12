@@ -1,7 +1,10 @@
 using GerenciamentoCatequese.Interfaces;
 using GerenciamentoCatequese.Models;
+using GerenciamentoCatequese.Models.Dtos;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 
 namespace GerenciamentoCatequese.Pages
 {
@@ -48,6 +51,33 @@ namespace GerenciamentoCatequese.Pages
             _turmas = await _gerenciamentoService.ListarTurmas();
 
             return Page();
+        }
+
+        public IActionResult OnPostRegistrar([FromBody] FrequenciaRequestDTO request)
+        {
+            int IdTurma = 0;
+
+            IdTurmaClaim = User.FindFirst("IdTurma")?.Value;
+
+            if (int.TryParse(IdTurmaClaim, out int parsedTurma))
+            {
+                IdTurma = parsedTurma;
+            }
+
+
+            var tabela = new DataTable();
+            tabela.Columns.Add("IdCatequisando", typeof(int));
+            tabela.Columns.Add("Frequencia", typeof(int));
+            tabela.Columns.Add("Justificativa", typeof(string));
+
+            foreach (var item in request.Frequencias)
+            {
+                tabela.Rows.Add(item.IdCatequisando, item.Frequencia, item.Justificativa ?? (object)DBNull.Value);
+            }
+
+            _gerenciamentoService.RegistrarFrequenciaCatequisando(IdTurma, request.DataFrequencia, tabela);
+
+            return RedirectToPage("Index");
         }
     }
 }

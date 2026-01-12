@@ -892,6 +892,29 @@ namespace GerenciamentoCatequese.Repositories
             }
         }
 
+        public async Task<IEnumerable<RelatorioFrequenciaLancada>> GerarRelatorioFrequenciaLancada()
+        {
+            try
+            {
+                var conexao = _configuration.GetConnectionString("Default");
+                using var connection = new SqlConnection(conexao);
+
+                var p = new DynamicParameters();
+
+                var retorno = await connection.QueryAsync<RelatorioFrequenciaLancada>(
+                   "dbo.uspListarFrequenciasLancadas",
+                   p,
+                   commandType: CommandType.StoredProcedure);
+
+                return retorno!;
+            }
+            catch (Exception ex)
+            { 
+                _logger.LogError($"Erro ao buscar os dados {ex.Message}");
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<Catequista> PesquisaCatequista(int IdCatequista) 
         {
             try
@@ -943,5 +966,30 @@ namespace GerenciamentoCatequese.Repositories
             }
         }
 
+        public async Task RegistrarFrequenciaCatequisando(int IdTurma, DateTime DataFrequencia, DataTable frequenciaCatequisandos)
+        {
+            try
+            {
+                var conexao = _configuration.GetConnectionString("Default");
+
+                using var connection = new SqlConnection(conexao);
+
+                var p = new DynamicParameters();
+                p.Add("@IdTurma", IdTurma);
+                p.Add("@DataFrequencia", DataFrequencia);
+                p.Add("@ListaFrequencia", frequenciaCatequisandos.AsTableValuedParameter("dbo.FrequenciaCatequisandoType"));
+
+                await connection.QueryAsync(
+                   "dbo.uspRegistraFrequenciaCatequisando",
+                   p,
+                   commandType: CommandType.StoredProcedure);
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Erro ao registrar a frequência: {ex.Message}");
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

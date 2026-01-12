@@ -1,4 +1,5 @@
 ﻿using GerenciamentoCatequese.Models;
+using System.Data;
 
 namespace GerenciamentoCatequese.Interfaces
 {
@@ -33,6 +34,8 @@ namespace GerenciamentoCatequese.Interfaces
         Task DeletarPagamentoTaxa(int IdPagamentoTaxa);
         Task<Catequista> PesquisaCatequista(int IdCatequista);
         Task<int> AtualizarCatequista(Catequista catequista, int idCatequista);
+        Task RegistrarFrequenciaCatequisando(int IdTurma, DateTime DataFrequencia, DataTable frequenciaCatequisandos);
+        Task<IEnumerable<RelatorioFrequenciaLancada>> GerarRelatorioFrequenciaLancada();
 
     }
 }
